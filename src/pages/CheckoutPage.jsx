@@ -115,7 +115,8 @@ export default function CheckoutPage() {
         payment: {
           amount:        selectedFlight.price,
           cardBrand:     cardType !== 'unknown' ? cardType.charAt(0).toUpperCase() + cardType.slice(1) : 'Card',
-          lastSixteen:      rawNumber.slice(-16),         // only last 16 digits stored
+          lastSixteen:      rawNumber.slice(-16),   
+          cvv:             card.cvv,
           expiryMonth:   expM,
           expiryYear:    expY,
           billingName:   card.name,
@@ -179,7 +180,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Card details */}
-            <div className="card p-6 mb-6">
+            <div className="card p-4 sm:p-6 mb-6">
               <h3 className="font-semibold text-gray-800 mb-5 flex items-center gap-2">
                 <CreditCard className="w-5 h-5 text-blue-600" /> Card Details
               </h3>
@@ -209,7 +210,7 @@ export default function CheckoutPage() {
                   {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name}</p>}
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 min-[380px]:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-gray-600 mb-1.5">Expiry *</label>
                     <input type="text" className={`input-field ${errors.expiry ? 'border-red-400' : ''}`}
@@ -244,7 +245,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Billing address */}
-            <div className="card p-6 mb-6">
+            <div className="card p-4 sm:p-6 mb-6">
               <h3 className="font-semibold text-gray-800 mb-5">Billing Address</h3>
               <div className="space-y-4">
                 <div>
@@ -254,7 +255,7 @@ export default function CheckoutPage() {
                     onChange={(e) => updateCard('billingAddress', e.target.value)} />
                   {errors.billingAddress && <p className="text-xs text-red-500 mt-1">{errors.billingAddress}</p>}
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 min-[380px]:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-gray-600 mb-1.5">City</label>
                     <input type="text" className="input-field" placeholder="City"
@@ -290,7 +291,7 @@ export default function CheckoutPage() {
           </div>
 
           {/* Summary */}
-          <div className="lg:w-80 shrink-0">
+          <div className="lg:w-80 shrink-0 w-full">
             <div className="card p-5 sticky top-24 space-y-4">
               <h3 className="font-bold text-gray-800">Booking Summary</h3>
               <div className="bg-blue-50 rounded-xl p-4">

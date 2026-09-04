@@ -25,10 +25,10 @@ export default function AdminLayout({ children, title }) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen overflow-x-hidden bg-gray-50 flex">
       {/* Sidebar */}
       <aside className={`
-        fixed inset-y-0 left-0 z-50 w-64 bg-gray-900 flex flex-col transition-transform duration-300
+        fixed inset-y-0 left-0 z-50 w-[min(84vw,16rem)] bg-gray-900 flex flex-col transition-transform duration-300
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 lg:static lg:z-auto
       `}>
         {/* Logo */}
@@ -93,7 +93,7 @@ export default function AdminLayout({ children, title }) {
       {/* Main content */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top bar */}
-        <header className="bg-white border-b border-gray-200 px-4 sm:px-6 py-4 flex items-center justify-between gap-4 sticky top-0 z-30">
+        <header className="bg-white border-b border-gray-200 px-3 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-3 sticky top-0 z-30">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -101,14 +101,14 @@ export default function AdminLayout({ children, title }) {
             >
               {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
-            <h1 className="text-lg font-bold text-gray-900">{title}</h1>
+            <h1 className="text-base sm:text-lg font-bold text-gray-900 truncate">{title}</h1>
           </div>
           <div className="flex items-center gap-2">
             <button className="relative p-2 text-gray-500 hover:bg-gray-100 rounded-lg">
               <Bell className="w-5 h-5" />
               <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
             </button>
-            <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 text-sm font-medium text-gray-700">
+            <div className="flex items-center gap-2 px-2 sm:px-3 py-2 rounded-lg border border-gray-200 text-sm font-medium text-gray-700">
               <div className="w-6 h-6 bg-blue-600 rounded-md flex items-center justify-center">
                 <User className="w-3.5 h-3.5 text-white" />
               </div>
@@ -118,7 +118,7 @@ export default function AdminLayout({ children, title }) {
         </header>
 
         {/* Page content */}
-        <main className="flex-1 p-4 sm:p-6 overflow-auto">
+        <main className="flex-1 min-w-0 p-3 sm:p-6 overflow-auto">
           {children}
         </main>
       </div>

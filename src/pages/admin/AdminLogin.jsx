@@ -31,7 +31,7 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="min-h-screen flex bg-gradient-to-br from-gray-900 via-blue-950 to-gray-900">
+    <div className="min-h-screen flex bg-gradient-to-br from-gray-950 via-emerald-950 to-gray-900">
       {/* Left panel */}
       <div className="hidden lg:flex w-1/2 flex-col items-center justify-center p-12">
         <div className="flex items-center gap-3 mb-10">
@@ -60,7 +60,7 @@ export default function AdminLogin() {
             <span className="text-xl font-black text-white">FlightConnect</span>
           </div>
 
-          <div className="bg-white rounded-3xl shadow-2xl p-8">
+          <div className="bg-white rounded-2xl shadow-2xl p-5 sm:p-8">
             <div className="mb-8">
               <h1 className="text-2xl font-black text-gray-900 mb-1">Admin Sign In</h1>
               <p className="text-sm text-gray-500">Access the FlightConnect operations dashboard</p>

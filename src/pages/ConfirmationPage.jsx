@@ -37,14 +37,14 @@ export default function ConfirmationPage() {
           <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-200">
             <CheckCircle className="w-10 h-10 text-green-500" />
           </div>
-          <h1 className="text-3xl font-black text-gray-900 mb-2">Booking Request Received!</h1>
+          <h1 className="text-2xl sm:text-3xl font-black text-gray-900 mb-2">Booking Request Received!</h1>
           <p className="text-gray-500 max-w-md mx-auto">
             Your booking request has been submitted successfully. Our team will contact you shortly to confirm.
           </p>
         </div>
 
         {/* Booking Reference Card */}
-        <div className="card p-6 mb-6 border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-white">
+        <div className="card p-4 sm:p-6 mb-6 border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-white">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
               <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Booking Reference</p>
@@ -64,7 +64,7 @@ export default function ConfirmationPage() {
         </div>
 
         {/* What Happens Next */}
-        <div className="card p-6 mb-6">
+        <div className="card p-4 sm:p-6 mb-6">
           <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
             <Clock className="w-5 h-5 text-blue-600" /> What Happens Next
           </h3>
@@ -91,7 +91,7 @@ export default function ConfirmationPage() {
         {/* Flight Summary */}
         <div className="card p-6 mb-6">
           <h3 className="font-bold text-gray-800 mb-4">Flight Details</h3>
-          <div className="bg-blue-50 rounded-xl p-5">
+          <div className="bg-blue-50 rounded-xl p-4 sm:p-5">
             <div className="flex items-center justify-between mb-4">
               <div>
                 <p className="text-xs text-gray-500">{selectedFlight.airline}</p>
@@ -101,9 +101,9 @@ export default function ConfirmationPage() {
                 {selectedFlight.stops === 0 ? 'Non-stop' : `${selectedFlight.stops} stop`}
               </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               <div className="text-center">
-                <p className="text-3xl font-black text-gray-900">{selectedFlight.departureTime}</p>
+                <p className="text-2xl sm:text-3xl font-black text-gray-900">{selectedFlight.departureTime}</p>
                 <p className="text-sm font-bold text-gray-700">{fromCity}</p>
                 <p className="text-xs text-gray-500">{selectedFlight.from}</p>
               </div>
@@ -117,14 +117,14 @@ export default function ConfirmationPage() {
                 <p className="text-xs text-gray-400 mt-1">{selectedFlight.date}</p>
               </div>
               <div className="text-center">
-                <p className="text-3xl font-black text-gray-900">{selectedFlight.arrivalTime}</p>
+                <p className="text-2xl sm:text-3xl font-black text-gray-900">{selectedFlight.arrivalTime}</p>
                 <p className="text-sm font-bold text-gray-700">{toCity}</p>
                 <p className="text-xs text-gray-500">{selectedFlight.to}</p>
               </div>
             </div>
           </div>
 
-          <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
+          <div className="mt-4 grid grid-cols-1 min-[380px]:grid-cols-2 gap-4 text-sm">
             <div>
               <p className="text-xs text-gray-500">Passengers</p>
               <p className="font-medium">{passengerDetails.passengers.map(p => `${p.firstName} ${p.lastName}`).join(', ')}</p>
@@ -137,7 +137,7 @@ export default function ConfirmationPage() {
         </div>
 
         {/* Contact support */}
-        <div className="card p-6 mb-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+        <div className="card p-4 sm:p-6 mb-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
           <h3 className="font-bold mb-3">Need help? Contact us</h3>
           <div className="flex flex-col sm:flex-row gap-4">
             <a href="tel:+911800001234" className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-3 rounded-xl transition-colors">

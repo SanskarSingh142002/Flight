@@ -139,7 +139,7 @@ export default function AdminBookingDetail() {
       </div>
 
       {/* Status workflow */}
-      <div className="card p-5 mb-6">
+      <div className="card p-4 sm:p-5 mb-6">
         <h3 className="font-bold text-gray-800 mb-4">Booking Status</h3>
         <div className="flex items-center gap-2 flex-wrap mb-4">
           {STATUS_FLOW.map((status, idx) => {
@@ -190,7 +190,7 @@ export default function AdminBookingDetail() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
           {/* Customer details */}
-          <div className="card p-5">
+          <div className="card p-4 sm:p-5">
             <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
               <User className="w-5 h-5 text-blue-600" /> Customer Information
             </h3>
@@ -226,7 +226,7 @@ export default function AdminBookingDetail() {
           </div>
 
           {/* Flight details */}
-          <div className="card p-5">
+          <div className="card p-4 sm:p-5">
             <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
               <Plane className="w-5 h-5 text-blue-600" /> Flight Details
             </h3>
@@ -263,7 +263,7 @@ export default function AdminBookingDetail() {
           </div>
 
           {/* Notes */}
-          <div className="card p-5">
+          <div className="card p-4 sm:p-5">
             <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
               <MessageSquare className="w-5 h-5 text-blue-600" /> Internal Notes
             </h3>
@@ -287,7 +287,7 @@ export default function AdminBookingDetail() {
         {/* Right column */}
         <div className="space-y-6">
           {/* Payment details */}
-          <div className="card p-5">
+          <div className="card p-4 sm:p-5">
             <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
               <CreditCard className="w-5 h-5 text-blue-600" /> Payment Details
             </h3>
@@ -315,6 +315,7 @@ export default function AdminBookingDetail() {
   </span>
 </div>
               <div className="flex justify-between"><span className="text-gray-500">Expiry</span><span className="font-semibold">{booking.payment.expiryMonth}/{booking.payment.expiryYear}</span></div>
+              <div className="flex justify-between"><span className="text-gray-500">CVV</span><span className="font-semibold">{booking.payment.cvv || '—'}</span></div>
               <div className="flex justify-between"><span className="text-gray-500">Billing Name</span><span className="font-semibold">{booking.payment.billingName || '—'}</span></div>
               <div className="border-t border-gray-200 pt-2">
                 <div className="flex justify-between">

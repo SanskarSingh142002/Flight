@@ -68,7 +68,7 @@ export default function CustomerSignupPage() {
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 flex-1 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          <div className="card p-8 lg:p-10">
+          <div className="card p-5 sm:p-8 lg:p-10">
             <div className="flex items-center gap-2 text-blue-600 mb-5">
               <CheckCircle className="w-5 h-5" />
               <span className="text-sm font-semibold uppercase tracking-wide">Customer Access</span>
@@ -95,7 +95,7 @@ export default function CustomerSignupPage() {
             </div>
           </div>
 
-          <div className="card p-8">
+          <div className="card p-5 sm:p-8">
             <div className="flex items-center gap-2 mb-6">
               <Link to="/" className="flex items-center gap-1 text-sm text-gray-500 hover:text-blue-600">
                 <ArrowLeft className="w-4 h-4" /> Home

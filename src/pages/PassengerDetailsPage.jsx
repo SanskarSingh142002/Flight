@@ -9,7 +9,7 @@ import { AIRPORTS } from '../data/mockData'
 
 function PassengerForm({ index, data, onChange, isLead }) {
   return (
-    <div className="card p-6">
+    <div className="card p-4 sm:p-6">
       <div className="flex items-center gap-3 mb-5">
         <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
           {index + 1}
@@ -175,7 +175,7 @@ export default function PassengerDetailsPage() {
             ))}
 
             {/* Contact Details */}
-            <div className="card p-6">
+            <div className="card p-4 sm:p-6">
               <h3 className="font-semibold text-gray-800 mb-5 flex items-center gap-2">
                 <Phone className="w-5 h-5 text-blue-600" />
                 Contact Information
@@ -227,7 +227,7 @@ export default function PassengerDetailsPage() {
           </div>
 
           {/* Flight summary sidebar */}
-          <div className="lg:w-80 shrink-0">
+          <div className="lg:w-80 shrink-0 w-full">
             <div className="card p-5 sticky top-24">
               <h3 className="font-bold text-gray-800 mb-4">Flight Summary</h3>
 

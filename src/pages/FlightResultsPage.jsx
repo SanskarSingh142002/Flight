@@ -204,7 +204,7 @@ export default function FlightResultsPage() {
                   </p>
                 )}
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 w-full sm:w-auto">
                 <button onClick={() => setFilterOpen(true)}
                   className="lg:hidden flex items-center gap-1.5 text-sm font-medium text-gray-700 border border-gray-200 px-3 py-2 rounded-lg hover:bg-gray-50">
                   <Filter className="w-4 h-4" /> Filters
@@ -212,7 +212,7 @@ export default function FlightResultsPage() {
                 <div className="flex items-center gap-1.5">
                   <ArrowUpDown className="w-4 h-4 text-gray-400" />
                   <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}
-                    className="text-sm text-gray-700 border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white">
+                    className="w-full sm:w-auto text-sm text-gray-700 border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white">
                     <option value="price">Price: Low to High</option>
                     <option value="price_desc">Price: High to Low</option>
                     <option value="duration">Duration: Shortest</option>

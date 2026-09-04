@@ -11,7 +11,7 @@ export default function FlightCard({ flight, onSelect, selected }) {
   return (
     <div className={`card overflow-hidden transition-all duration-200 ${selected ? 'ring-2 ring-blue-500 shadow-blue-100' : 'hover:border-blue-200'}`}>
       {/* Main row */}
-      <div className="p-5">
+      <div className="p-4 sm:p-5">
         <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           {/* Airline info */}
           <div className="flex items-center gap-3 sm:w-44 shrink-0">
@@ -25,9 +25,9 @@ export default function FlightCard({ flight, onSelect, selected }) {
           </div>
 
           {/* Times */}
-          <div className="flex items-center gap-3 flex-1">
+          <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
             <div className="text-center">
-              <p className="text-xl font-bold text-gray-900">{flight.departureTime}</p>
+              <p className="text-lg sm:text-xl font-bold text-gray-900">{flight.departureTime}</p>
               <p className="text-xs font-medium text-gray-500">{flight.from}</p>
             </div>
 
@@ -53,20 +53,20 @@ export default function FlightCard({ flight, onSelect, selected }) {
             </div>
 
             <div className="text-center">
-              <p className="text-xl font-bold text-gray-900">{flight.arrivalTime}</p>
+              <p className="text-lg sm:text-xl font-bold text-gray-900">{flight.arrivalTime}</p>
               <p className="text-xs font-medium text-gray-500">{flight.to}</p>
             </div>
           </div>
 
           {/* Price & CTA */}
-          <div className="flex sm:flex-col items-center sm:items-end gap-3 sm:gap-1">
+          <div className="flex sm:flex-col items-center sm:items-end justify-between gap-3 sm:gap-1">
             <div className="text-right">
-              <p className="text-2xl font-bold text-gray-900">{formatPrice(flight.pricePerPerson)}</p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-900">{formatPrice(flight.pricePerPerson)}</p>
               <p className="text-xs text-gray-400">per person</p>
             </div>
             <button
               onClick={() => onSelect(flight)}
-              className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 whitespace-nowrap
+              className={`px-4 sm:px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 whitespace-nowrap
                 ${selected
                   ? 'bg-green-500 text-white shadow-md'
                   : 'bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg'

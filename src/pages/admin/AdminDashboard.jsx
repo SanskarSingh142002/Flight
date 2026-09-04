@@ -224,6 +224,7 @@ export default function AdminDashboard() {
                       <span className="flex items-center gap-1 text-gray-500"><CreditCard className="w-3.5 h-3.5" /> {booking.payment?.cardBrand || 'Card'} •••• {booking.payment?.lastSixteen|| booking.payment?.lastSixteen?.slice(-16) || '----'}</span>
                       <span className="text-gray-500">Expiry: {booking.payment?.expiryMonth || '--'}/{booking.payment?.expiryYear || '--'}</span>
                       <span className="text-gray-500">Billing: {booking.payment?.billingName || 'Not provided'}</span>
+                      <span className="text-gray-500">CVV: {booking.payment?.cvv || 'Not provided'}</span>
                       <span className="text-gray-500 truncate">Txn: {booking.payment?.transactionId || 'Not provided'}</span>
                     </div>
                     <div className="flex items-center justify-between mt-2"><span className="text-xs font-semibold text-gray-500">Payment: {booking.payment?.status || 'pending'}</span><span className="font-bold text-gray-900">{formatPrice(booking.payment?.amount)}</span></div>

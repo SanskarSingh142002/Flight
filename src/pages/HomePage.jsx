@@ -245,7 +245,7 @@ export default function HomePage() {
       <Navbar />
 
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
-      <section className="relative min-h-[92vh] flex flex-col justify-center overflow-visible bg-[#0a0f1e]">
+      <section className="relative min-h-[auto] lg:min-h-[92vh] flex flex-col justify-center overflow-visible bg-[#0d1716]">
 
         {/* Grid texture */}
         <div className="absolute inset-0" style={{
@@ -254,13 +254,13 @@ export default function HomePage() {
         }} />
 
         {/* Glow blobs */}
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-0 left-1/4 w-[min(600px,90vw)] h-[min(600px,90vw)] bg-emerald-700/20 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-[min(500px,80vw)] h-[min(500px,80vw)] bg-teal-700/20 rounded-full blur-[120px] pointer-events-none" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-20 w-full">
 
           {/* Live badge */}
-          <div className="flex justify-center mb-8">
+          <div className="flex justify-center mb-6 sm:mb-8">
             <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 backdrop-blur-sm text-white/70 text-xs font-medium px-4 py-2 rounded-full">
               <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
               Live prices · 300+ airlines · Instant confirmation
@@ -269,24 +269,24 @@ export default function HomePage() {
 
           {/* Headline */}
           <div className="text-center mb-12">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-5">
+            <h1 className="text-[2.65rem] sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-5">
               Your journey starts
               <br />
               <span className="relative inline-block">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-300">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-300 to-amber-200">
                   with one search
                 </span>
                 <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 400 12" fill="none">
                   <path d="M0 8 Q100 2 200 8 Q300 14 400 8" stroke="url(#u1)" strokeWidth="3" fill="none" strokeLinecap="round"/>
                   <defs>
                     <linearGradient id="u1" x1="0" x2="400" y1="0" y2="0" gradientUnits="userSpaceOnUse">
-                      <stop stopColor="#60a5fa"/><stop offset="1" stopColor="#22d3ee"/>
+                      <stop stopColor="#6ee7b7"/><stop offset="1" stopColor="#fcd34d"/>
                     </linearGradient>
                   </defs>
                 </svg>
               </span>
             </h1>
-            <p className="text-lg text-white/40 font-medium max-w-md mx-auto">
+            <p className="text-base sm:text-lg text-white/45 font-medium max-w-md mx-auto">
               Compare live fares, choose your flight, and let our team take it from there.
             </p>
           </div>
@@ -301,18 +301,18 @@ export default function HomePage() {
                   key={t}
                   type="button"
                   onClick={() => setTripType(t)}
-                  className={`px-5 py-2 rounded-full text-xs font-bold tracking-wide transition-all duration-200 ${
+                      className={`flex-1 sm:flex-none justify-center px-4 sm:px-5 py-2 rounded-full text-xs font-bold tracking-wide transition-all duration-200 ${
                     tripType === t
-                      ? 'bg-white text-blue-700 shadow-lg shadow-black/20'
+                      ? 'bg-white text-emerald-800 shadow-lg shadow-black/20'
                       : 'text-white/50 hover:text-white/80 border border-white/10 hover:border-white/20 hover:bg-white/5'
                   }`}
                 >{t}</button>
               ))}
-              <div className="ml-auto">
+              <div className="w-full sm:w-auto sm:ml-auto">
                 <select
                   value={cabinClass}
                   onChange={e => setCabinClass(e.target.value)}
-                  className="text-xs font-bold text-white/60 bg-white/5 border border-white/15 rounded-full px-4 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400 hover:bg-white/10 transition-colors cursor-pointer"
+                  className="w-full sm:w-auto text-xs font-bold text-white/60 bg-white/5 border border-white/15 rounded-full px-4 py-2 focus:outline-none focus:ring-1 focus:ring-emerald-400 hover:bg-white/10 transition-colors cursor-pointer"
                 >
                   {CABIN_CLASSES.map(c => (
                     <option key={c} className="text-gray-900 bg-white font-medium">{c}</option>
@@ -322,12 +322,12 @@ export default function HomePage() {
             </div>
 
             {/* Card */}
-            <div className="relative rounded-[32px] overflow-visible shadow-[0_30px_80px_rgba(15,23,42,0.7)] ring-1 ring-white/10 border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.9),rgba(15,23,42,0.72))] backdrop-blur-xl">
+            <div className="relative rounded-2xl sm:rounded-[32px] overflow-visible shadow-[0_30px_80px_rgba(5,25,22,0.7)] ring-1 ring-white/10 border border-white/10 bg-[linear-gradient(180deg,rgba(16,30,29,0.94),rgba(16,30,29,0.78))] backdrop-blur-xl">
 
               <div className="p-3 sm:p-5">
                 <div className="flex flex-col xl:flex-row gap-3">
                   <div className="flex-1 rounded-2xl border border-white/10 bg-white/[0.03] p-3">
-                    <div className="flex items-stretch gap-3 sm:gap-4">
+                    <div className="flex flex-col sm:flex-row items-stretch gap-3 sm:gap-4">
                       <AirportField
                         label="From"
                         value={from}
@@ -336,15 +336,15 @@ export default function HomePage() {
                       />
 
                       <div className="flex flex-col items-center justify-center shrink-0 px-1">
-                        <div className="w-px h-5 bg-white/10" />
+                          <div className="w-px h-5 bg-white/10 hidden sm:block" />
                         <button
                           type="button"
                           onClick={swap}
-                          className="my-2 w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 hover:from-blue-400 hover:to-blue-500 border border-blue-300/20 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 group shadow-lg shadow-blue-500/20"
+                          className="my-2 w-10 h-10 self-center bg-gradient-to-br from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 border border-emerald-300/20 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 group shadow-lg shadow-emerald-900/30"
                         >
                           <ArrowRightLeft className="w-4 h-4 text-white transition-colors" />
                         </button>
-                        <div className="w-px h-5 bg-white/10" />
+                        <div className="w-px h-5 bg-white/10 hidden sm:block" />
                       </div>
 
                       <AirportField
@@ -357,7 +357,7 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div className="mt-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-3">
+                <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-3">
                   <DateField
                     label="Departure"
                     value={departDate}
@@ -414,13 +414,13 @@ export default function HomePage() {
                   <button
                     type="button"
                     onClick={handleSearch}
-                    className="relative overflow-hidden group bg-gradient-to-r from-blue-500 via-blue-600 to-cyan-500 hover:from-blue-400 hover:via-blue-500 hover:to-cyan-400 text-white font-black rounded-2xl shadow-[0_20px_40px_rgba(59,130,246,0.45)] transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 min-h-[82px]"
+                    className="relative overflow-hidden group bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:via-teal-500 hover:to-emerald-600 text-white font-black rounded-2xl shadow-[0_20px_40px_rgba(16,100,80,0.4)] transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 min-h-[82px]"
                   >
                     <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/15 to-transparent" />
                     <div className="relative flex flex-col items-center justify-center gap-1 py-3">
                       <Search className="w-5 h-5" />
                       <span className="text-sm font-black tracking-wide">Search</span>
-                      <span className="text-[9px] text-blue-100 font-medium tracking-widest uppercase">Live Fares</span>
+                      <span className="text-[9px] text-emerald-100 font-medium tracking-widest uppercase">Live Fares</span>
                     </div>
                   </button>
                 </div>

@@ -35,10 +35,10 @@ export default function Navbar() {
               <Plane className="w-4 h-4 text-white -rotate-45" />
             </div>
             <div className="flex items-baseline gap-0.5">
-              <span className={`text-lg font-black tracking-tight transition-colors ${transparent ? 'text-white' : 'text-gray-900'}`}>
+              <span className={`text-base sm:text-lg font-black tracking-tight transition-colors ${transparent ? 'text-white' : 'text-gray-900'}`}>
                 Flight
               </span>
-              <span className="text-lg font-black tracking-tight text-blue-500">Connect</span>
+              <span className="text-base sm:text-lg font-black tracking-tight text-blue-500">Connect</span>
             </div>
           </Link>
 
@@ -118,7 +118,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 px-4 py-4 space-y-1 shadow-xl animate-fade-in">
+        <div className="md:hidden max-h-[calc(100vh-4rem)] overflow-y-auto bg-white border-t border-gray-100 px-4 py-4 space-y-1 shadow-xl animate-fade-in">
           {['Home', 'How It Works', 'Contact'].map(item => (
             <a key={item} href={item === 'Home' ? '/' : `/#${item.toLowerCase().replace(/ /g, '-')}`}
               onClick={() => setMenuOpen(false)}

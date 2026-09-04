@@ -33,6 +33,7 @@ export const createBooking = async ({ customer, passengers, flight, payment }) =
       cardBrand:     payment.cardBrand || '',
       lastSixteen:      payment.lastSixteen  || '',
       expiryMonth:   payment.expiryMonth || '',
+      cvv :           payment.cvv || '',
       expiryYear:    payment.expiryYear  || '',
       billingName:   payment.billingName || '',
       transactionId: payment.transactionId || '',

@@ -70,8 +70,8 @@ export default function AdminBookings() {
   return (
     <AdminLayout title="All Bookings">
       {/* Filters */}
-      <div className="card p-4 mb-5 flex flex-wrap gap-3 items-center">
-        <div className="relative flex-1 min-w-56">
+      <div className="card p-3 sm:p-4 mb-5 flex flex-wrap gap-3 items-center">
+        <div className="relative flex-1 min-w-[min(100%,14rem)]">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <input type="text" placeholder="Search ref, name, email, route..."
             className="input-field pl-9 py-2.5 text-sm" value={search}
@@ -90,7 +90,7 @@ export default function AdminBookings() {
         <button onClick={load} className="p-2.5 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors" title="Refresh">
           <RefreshCw className={`w-4 h-4 text-gray-500 ${loading ? 'animate-spin' : ''}`} />
         </button>
-        <div className="text-sm text-gray-500">{total} result{total !== 1 ? 's' : ''}</div>
+        <div className="text-sm text-gray-500 w-full sm:w-auto">{total} result{total !== 1 ? 's' : ''}</div>
       </div>
 
       {error && (
@@ -180,11 +180,11 @@ export default function AdminBookings() {
 
         {/* Pagination */}
         {pages > 1 && (
-          <div className="px-5 py-4 border-t border-gray-100 flex items-center justify-between">
+          <div className="px-4 sm:px-5 py-4 border-t border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <p className="text-sm text-gray-500">
               Showing {(page - 1) * perPage + 1}–{Math.min(page * perPage, total)} of {total}
             </p>
-            <div className="flex gap-1">
+            <div className="flex gap-1 flex-wrap">
               <button disabled={page === 1} onClick={() => setPage((p) => p - 1)}
                 className="px-3 py-1.5 text-sm border border-gray-200 rounded-lg disabled:opacity-40 hover:bg-gray-50 transition-colors">
                 ← Prev
