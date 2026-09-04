@@ -9,6 +9,7 @@ import AdminDashboard from './pages/admin/AdminDashboard'
 import AdminBookings from './pages/admin/AdminBookings'
 import AdminBookingDetail from './pages/admin/AdminBookingDetail'
 import CustomerSignupPage from './pages/CustomerSignupPage'
+import CustomerLoginPage from './pages/CustomerLoginPage'
 import { BookingProvider } from './context/BookingContext'
 import { AdminAuthProvider } from './context/AdminAuthContext'
 import { CustomerAuthProvider } from './context/CustomerAuthContext'
@@ -24,6 +25,7 @@ export default function App() {
             <Routes>
               {/* Public Customer Signup */}
               <Route path="/signup" element={<CustomerSignupPage />} />
+              <Route path="/signin" element={<CustomerLoginPage />} />
 
               {/* Customer Routes */}
               <Route path="/" element={<HomePage />} />

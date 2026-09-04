@@ -119,7 +119,7 @@ export default function AdminBookingDetail() {
     <AdminLayout title="Booking Detail">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 flex-wrap">
           <Link to="/admin/bookings" className="flex items-center gap-1 text-sm text-gray-500 hover:text-blue-600">
             <ArrowLeft className="w-4 h-4" /> All Bookings
           </Link>
@@ -141,7 +141,7 @@ export default function AdminBookingDetail() {
       {/* Status workflow */}
       <div className="card p-4 sm:p-5 mb-6">
         <h3 className="font-bold text-gray-800 mb-4">Booking Status</h3>
-        <div className="flex items-center gap-2 flex-wrap mb-4">
+        <div className="grid grid-cols-2 sm:flex sm:items-center gap-2 mb-4">
           {STATUS_FLOW.map((status, idx) => {
             const cfg      = STATUS_CONFIG[status]
             const isActive = booking.status === status
@@ -150,7 +150,7 @@ export default function AdminBookingDetail() {
             return (
               <button key={status} onClick={() => !isCancelled && changeStatus(status)}
                 disabled={isCancelled || statusSaving}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all border
+                className={`flex items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all border
                   ${isActive ? `${cfg.color} border-current shadow-md` : isPast ? 'bg-green-50 text-green-700 border-green-200' : 'bg-gray-50 text-gray-400 border-gray-200 hover:border-gray-300'}
                   ${(isCancelled || statusSaving) ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}
                 `}>
@@ -163,7 +163,7 @@ export default function AdminBookingDetail() {
           })}
           <button onClick={() => changeStatus('cancelled')}
             disabled={booking.status === 'cancelled' || booking.status === 'completed' || statusSaving}
-            className="px-4 py-2 rounded-xl text-sm font-semibold bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
+            className="px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
             Cancel
           </button>
         </div>
@@ -174,7 +174,7 @@ export default function AdminBookingDetail() {
             <p className="text-xs font-semibold text-gray-500 mb-2">History</p>
             <div className="space-y-1.5">
               {booking.statusHistory.map((h, i) => (
-                <div key={i} className="flex items-center gap-2 text-xs text-gray-500">
+                <div key={i} className="flex items-start gap-2 flex-wrap text-xs text-gray-500">
                   <span className={`w-2 h-2 rounded-full ${STATUS_CONFIG[h.status]?.dot || 'bg-gray-400'}`} />
                   <span className="font-medium text-gray-700">{STATUS_CONFIG[h.status]?.label || h.status}</span>
                   <span>—</span>
@@ -240,7 +240,7 @@ export default function AdminBookingDetail() {
                   {booking.flight.stops === 0 ? 'Non-stop' : `${booking.flight.stops} stop`}
                 </span>
               </div>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 sm:gap-4">
                 <div className="text-center">
                   <p className="text-2xl font-black">{booking.flight.departureTime}</p>
                   <p className="text-sm font-bold text-gray-700">{booking.flight.from}</p>
@@ -270,7 +270,7 @@ export default function AdminBookingDetail() {
             <textarea rows={4} className="input-field resize-none"
               placeholder="Call logs, follow-up notes, special requests..." value={notes}
               onChange={(e) => setNotes(e.target.value)} />
-            <div className="flex items-center justify-between mt-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-3">
               <p className="text-xs text-gray-400">Only visible to staff.</p>
               <button onClick={saveNotes} disabled={notesSaving}
                 className="flex items-center gap-1.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors disabled:opacity-60">

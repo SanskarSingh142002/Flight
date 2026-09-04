@@ -9,6 +9,22 @@ export const login = async (username, password) => {
   return res;
 };
 
+/** POST /api/auth/signup — creates a customer account */
+export const customerSignup = async ({ name, email, phone, password }) => {
+  const res = await apiClient.post('/auth/signup', { name, email, phone, password });
+  localStorage.setItem('fc_customer_token', res.token);
+  localStorage.setItem('fc_customer', JSON.stringify(res.user));
+  return res;
+};
+
+/** POST /api/auth/login — customer email/password login */
+export const customerLogin = async (email, password) => {
+  const res = await apiClient.post('/auth/login', { email, password });
+  localStorage.setItem('fc_customer_token', res.token);
+  localStorage.setItem('fc_customer', JSON.stringify(res.user));
+  return res;
+};
+
 /** POST /api/auth/logout */
 export const logout = async () => {
   try {

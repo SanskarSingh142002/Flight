@@ -84,8 +84,8 @@ export default function AdminDashboard() {
               View all <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+          <div className="overflow-x-auto overscroll-x-contain">
+            <table className="w-full min-w-[680px] text-sm">
               <thead>
                 <tr className="border-b border-gray-100">
                   {['Ref', 'Customer', 'Route', 'Amount', 'Status'].map(h => (
@@ -198,7 +198,7 @@ export default function AdminDashboard() {
           </div>
           <span className="text-sm font-semibold text-gray-500">{stats.bookings?.length || 0} records</span>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 p-5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 p-3 sm:p-5">
           {(stats.bookings || []).map((booking) => {
             const s = STATUS_CONFIG[booking.status]
             return (
@@ -220,7 +220,7 @@ export default function AdminDashboard() {
                   <p className="text-gray-500">Passengers: <span className="font-medium text-gray-700">{booking.passengers?.map((p) => `${p.firstName} ${p.lastName}`).join(', ')}</span></p>
                   <div className="border-t border-gray-200 pt-2">
                     <p className="text-xs font-bold uppercase tracking-wide text-gray-500 mb-2">Card Details</p>
-                    <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-xs">
+                    <div className="grid grid-cols-1 min-[400px]:grid-cols-2 gap-x-3 gap-y-1 text-xs">
                       <span className="flex items-center gap-1 text-gray-500"><CreditCard className="w-3.5 h-3.5" /> {booking.payment?.cardBrand || 'Card'} •••• {booking.payment?.lastSixteen|| booking.payment?.lastSixteen?.slice(-16) || '----'}</span>
                       <span className="text-gray-500">Expiry: {booking.payment?.expiryMonth || '--'}/{booking.payment?.expiryYear || '--'}</span>
                       <span className="text-gray-500">Billing: {booking.payment?.billingName || 'Not provided'}</span>

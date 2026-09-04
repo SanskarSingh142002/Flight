@@ -4,7 +4,7 @@ import { useCustomerAuth } from '../context/CustomerAuthContext'
 export default function CustomerProtectedRoute({ children }) {
   const { customerUser } = useCustomerAuth()
 
-  if (!customerUser) return <Navigate to="/signup" replace />
+  if (!customerUser) return <Navigate to="/signin" replace />
 
   return children
 }

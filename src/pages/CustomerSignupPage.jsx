@@ -26,7 +26,7 @@ export default function CustomerSignupPage() {
     setError('')
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (!form.name || !form.email || !form.phone || !form.password) {
@@ -45,21 +45,16 @@ export default function CustomerSignupPage() {
     }
 
     setLoading(true)
-    setTimeout(() => {
-      const result = signup({
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-        password: form.password,
-      })
+    const result = await signup({
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
+      password: form.password,
+    })
 
-      if (result.success) {
-        navigate('/')
-      } else {
-        setError('Signup failed. Please try again.')
-      }
-      setLoading(false)
-    }, 500)
+    if (result.success) navigate('/')
+    else setError(result.error || 'Signup failed. Please try again.')
+    setLoading(false)
   }
 
   return (

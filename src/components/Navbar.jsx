@@ -95,14 +95,24 @@ export default function Navbar() {
                 </button>
               </>
             ) : (
-              <Link to="/signup"
-                className={`text-xs font-semibold px-4 py-2 rounded-lg border transition-all ${
-                  transparent
-                    ? 'border-white/20 text-white/70 hover:text-white hover:border-white/40 hover:bg-white/10'
-                    : 'border-gray-200 text-gray-500 hover:text-gray-700 hover:border-gray-300 hover:bg-gray-50'
-                }`}>
-                Customer Signup
-              </Link>
+              <div className="flex items-center gap-2">
+                <Link to="/signin"
+                  className={`text-xs font-semibold px-3 py-2 rounded-lg transition-all ${
+                    transparent
+                      ? 'text-white/80 hover:text-white hover:bg-white/10'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                  }`}>
+                  Sign In
+                </Link>
+                <Link to="/signup"
+                  className={`text-xs font-semibold px-4 py-2 rounded-lg border transition-all ${
+                    transparent
+                      ? 'border-white/20 text-white/70 hover:text-white hover:border-white/40 hover:bg-white/10'
+                      : 'border-gray-200 text-gray-500 hover:text-gray-700 hover:border-gray-300 hover:bg-gray-50'
+                  }`}>
+                  Sign Up
+                </Link>
+              </div>
             )}
           </div>
 
@@ -151,10 +161,16 @@ export default function Navbar() {
               </button>
             </>
           ) : (
-            <Link to="/signup" onClick={() => setMenuOpen(false)}
-              className="block py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-blue-600 transition-colors">
-              Customer Signup
-            </Link>
+            <div className="grid grid-cols-2 gap-2 pt-2">
+              <Link to="/signin" onClick={() => setMenuOpen(false)}
+                className="block py-2.5 px-3 text-center text-sm font-semibold text-gray-700 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
+                Sign In
+              </Link>
+              <Link to="/signup" onClick={() => setMenuOpen(false)}
+                className="block py-2.5 px-3 text-center text-sm font-semibold text-white rounded-lg bg-emerald-700 hover:bg-emerald-800 transition-colors">
+                Sign Up
+              </Link>
+            </div>
           )}
         </div>
       )}

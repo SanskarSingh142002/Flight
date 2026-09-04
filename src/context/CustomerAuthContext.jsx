@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react'
+import { customerLogin, customerSignup } from '../services/auth.service'
 
 const CustomerAuthContext = createContext(null)
 
@@ -6,34 +7,45 @@ export function CustomerAuthProvider({ children }) {
   const [customerUser, setCustomerUser] = useState(() => {
     try {
       const stored = localStorage.getItem('fc_customer')
-      return stored ? JSON.parse(stored) : null
+      const user = stored ? JSON.parse(stored) : null
+      if (user?.password) {
+        localStorage.removeItem('fc_customer')
+        return null
+      }
+      return user
     } catch {
       return null
     }
   })
 
-  const signup = ({ name, email, phone, password }) => {
-    const user = {
-      id: Date.now().toString(),
-      name,
-      email,
-      phone,
-      password,
-      createdAt: new Date().toISOString(),
+  const signup = async ({ name, email, phone, password }) => {
+    try {
+      const res = await customerSignup({ name, email, phone, password })
+      setCustomerUser(res.user)
+      return { success: true }
+    } catch (err) {
+      return { success: false, error: err.message || 'Signup failed.' }
     }
+  }
 
-    localStorage.setItem('fc_customer', JSON.stringify(user))
-    setCustomerUser(user)
-    return { success: true }
+  const login = async (email, password) => {
+    try {
+      const res = await customerLogin(email, password)
+      setCustomerUser(res.user)
+      return { success: true }
+    } catch (err) {
+      return { success: false, error: err.message || 'Invalid email or password.' }
+    }
   }
 
   const logout = () => {
     localStorage.removeItem('fc_customer')
+    localStorage.removeItem('fc_customer_token')
     setCustomerUser(null)
   }
 
   return (
-    <CustomerAuthContext.Provider value={{ customerUser, signup, logout }}>
+    <CustomerAuthContext.Provider value={{ customerUser, signup, login, logout }}>
       {children}
     </CustomerAuthContext.Provider>
   )

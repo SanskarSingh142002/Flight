@@ -93,7 +93,7 @@ export default function AdminLayout({ children, title }) {
       {/* Main content */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top bar */}
-        <header className="bg-white border-b border-gray-200 px-3 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-3 sticky top-0 z-30">
+        <header className="bg-white border-b border-gray-200 px-3 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-2 sticky top-0 z-30">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -103,8 +103,8 @@ export default function AdminLayout({ children, title }) {
             </button>
             <h1 className="text-base sm:text-lg font-bold text-gray-900 truncate">{title}</h1>
           </div>
-          <div className="flex items-center gap-2">
-            <button className="relative p-2 text-gray-500 hover:bg-gray-100 rounded-lg">
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+            <button aria-label="Notifications" className="relative p-2 text-gray-500 hover:bg-gray-100 rounded-lg">
               <Bell className="w-5 h-5" />
               <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
             </button>
@@ -118,7 +118,7 @@ export default function AdminLayout({ children, title }) {
         </header>
 
         {/* Page content */}
-        <main className="flex-1 min-w-0 p-3 sm:p-6 overflow-auto">
+        <main className="flex-1 min-w-0 p-3 pb-8 sm:p-6 overflow-auto">
           {children}
         </main>
       </div>
