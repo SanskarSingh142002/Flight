@@ -19,16 +19,27 @@
 html {
   overflow-x: hidden;
   scroll-behavior: smooth;
+  overscroll-behavior-x: none;
 }
 
 body {
   margin: 0;
+  width: 100%;
+  max-width: 100%;
   min-width: 320px;
   min-height: 100vh;
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
   font-family: 'Manrope', system-ui, sans-serif;
   background: #f6f8f7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 button, a, input, select, textarea {

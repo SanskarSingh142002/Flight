@@ -21,7 +21,7 @@ export default function Navbar() {
   const transparent = isHome && !scrolled && !menuOpen
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <nav className={`fixed inset-x-0 top-0 z-50 w-full max-w-full overflow-x-clip transition-all duration-300 ${
       transparent
         ? 'bg-transparent border-transparent'
         : 'bg-white/95 backdrop-blur-md border-b border-gray-200/80 shadow-sm'

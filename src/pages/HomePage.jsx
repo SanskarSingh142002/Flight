@@ -35,7 +35,7 @@ function AirportField({ label, value, onChange, placeholder }) {
   }
 
   return (
-    <div className="relative flex-1 min-w-0 min-h-[128px]">
+    <div className="relative flex-1 min-w-0 min-h-[96px] sm:min-h-[128px]">
       {/* Label */}
       <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2 flex items-center gap-1.5">
         <Plane className="w-3 h-3" /> {label}
@@ -51,7 +51,7 @@ function AirportField({ label, value, onChange, placeholder }) {
           <>
             <div className="flex items-end justify-between gap-2 leading-none">
               <div>
-                <span className="text-3xl sm:text-4xl font-black text-white tracking-tight">{selected.code}</span>
+                <span className="text-2xl sm:text-4xl font-black text-white tracking-tight">{selected.code}</span>
                 <p className="text-sm text-white/50 font-medium mt-2 truncate">{selected.city}</p>
               </div>
               <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-200/80 bg-blue-500/10 border border-blue-400/20 rounded-full px-2 py-1">
@@ -62,7 +62,7 @@ function AirportField({ label, value, onChange, placeholder }) {
         ) : (
           <>
             <div className="flex items-end justify-between gap-2 leading-none">
-              <span className="text-3xl sm:text-4xl font-black text-white/10 tracking-tight">- - -</span>
+              <span className="text-2xl sm:text-4xl font-black text-white/10 tracking-tight">- - -</span>
               <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/25">City</span>
             </div>
             <p className="text-sm text-white/25 font-medium mt-2">{placeholder}</p>
@@ -245,7 +245,7 @@ export default function HomePage() {
       <Navbar />
 
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
-      <section className="relative min-h-[auto] lg:min-h-[92vh] flex flex-col justify-center overflow-visible bg-[#0d1716]">
+      <section className="relative min-h-[auto] lg:min-h-[92vh] flex flex-col justify-center overflow-x-clip overflow-y-visible bg-[#0d1716]">
 
         {/* Grid texture */}
         <div className="absolute inset-0" style={{
