@@ -80,8 +80,12 @@ export default function Footer() {
         <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-gray-500">© 2026 FlightConnect. All rights reserved.</p>
           <div className="flex items-center gap-2 flex-wrap justify-center">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" className="h-5 opacity-50" />
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" className="h-5 opacity-50" />
+            <span className="h-7 min-w-12 px-2 bg-white rounded-md flex items-center justify-center">
+              <img src="https://cdn.simpleicons.org/visa/1A1F71" alt="Visa" className="h-4 w-auto" />
+            </span>
+            <span className="h-7 min-w-12 px-2 bg-white rounded-md flex items-center justify-center">
+              <img src="https://cdn.simpleicons.org/mastercard/EB001B" alt="Mastercard" className="h-4 w-auto" />
+            </span>
             <span className="text-xs text-gray-600 ml-2">PCI-DSS Compliant · Secure Payments</span>
           </div>
         </div>

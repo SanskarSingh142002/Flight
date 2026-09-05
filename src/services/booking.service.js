@@ -39,7 +39,7 @@ export const createBooking = async ({ customer, passengers, flight, payment }) =
       transactionId: payment.transactionId || '',
       // fullCardNumber and cvv are NEVER included here
     },
-  });
+  }, true);
   // { bookingRef, status, _id }
   return res.data;
 };
@@ -50,5 +50,11 @@ export const createBooking = async ({ customer, passengers, flight, payment }) =
  */
 export const getBookingByRef = async (ref) => {
   const res = await apiClient.get(`/bookings/${ref}`);
+  return res.data;
+};
+
+/** GET /api/bookings/mine — authenticated customer's bookings */
+export const getMyBookings = async () => {
+  const res = await apiClient.get('/bookings/mine', true);
   return res.data;
 };

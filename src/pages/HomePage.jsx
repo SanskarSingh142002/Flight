@@ -20,16 +20,15 @@ function AirportField({ label, value, onChange, placeholder }) {
   const [open,  setOpen]  = useState(false)
   const [query, setQuery] = useState('')
 
-  const filtered = AIRPORTS.filter(a =>
-    a.city.toLowerCase().includes(query.toLowerCase()) ||
-    a.code.toLowerCase().includes(query.toLowerCase()) ||
-    a.name.toLowerCase().includes(query.toLowerCase())
-  ).slice(0, 8)
+  const airports = AIRPORTS.filter((airport) =>
+    airport.city.toLowerCase().includes(query.toLowerCase()) ||
+    airport.code.toLowerCase().includes(query.toLowerCase()) ||
+    airport.name.toLowerCase().includes(query.toLowerCase())
+  ).slice(0, 12)
+  const selected = AIRPORTS.find((airport) => airport.code === value)
 
-  const selected = AIRPORTS.find(a => a.code === value)
-
-  const pick = (code) => {
-    onChange(code)
+  const pick = (airport) => {
+    onChange(airport.code)
     setOpen(false)
     setQuery('')
   }
@@ -94,15 +93,15 @@ function AirportField({ label, value, onChange, placeholder }) {
             </div>
             {/* Results */}
             <div className="max-h-72 overflow-y-auto">
-              {filtered.length === 0 && (
-                <p className="px-4 py-6 text-sm text-white/30 text-center">No results</p>
+              {airports.length === 0 && (
+                <p className="px-4 py-6 text-sm text-white/30 text-center">No airports found</p>
               )}
-              {filtered.map(airport => (
+              {airports.map(airport => (
                 <button
                   key={airport.code}
                   type="button"
                   onMouseDown={e => e.preventDefault()} /* prevent input blur */
-                  onClick={() => pick(airport.code)}
+                  onClick={() => pick(airport)}
                   className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 text-left transition-colors border-b border-white/5 last:border-0"
                 >
                   <div className="w-11 h-11 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center shrink-0">

@@ -7,7 +7,7 @@ const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const getToken = () => {
   try {
-    return localStorage.getItem('fc_token') || null;
+    return localStorage.getItem('fc_token') || localStorage.getItem('fc_customer_token') || null;
   } catch {
     return null;
   }

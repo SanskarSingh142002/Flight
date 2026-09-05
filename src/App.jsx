@@ -10,6 +10,7 @@ import AdminBookings from './pages/admin/AdminBookings'
 import AdminBookingDetail from './pages/admin/AdminBookingDetail'
 import CustomerSignupPage from './pages/CustomerSignupPage'
 import CustomerLoginPage from './pages/CustomerLoginPage'
+import CustomerBookingsPage from './pages/CustomerBookingsPage'
 import { BookingProvider } from './context/BookingContext'
 import { AdminAuthProvider } from './context/AdminAuthContext'
 import { CustomerAuthProvider } from './context/CustomerAuthContext'
@@ -33,6 +34,7 @@ export default function App() {
               <Route path="/passengers" element={<CustomerProtectedRoute><PassengerDetailsPage /></CustomerProtectedRoute>} />
               <Route path="/checkout" element={<CustomerProtectedRoute><CheckoutPage /></CustomerProtectedRoute>} />
               <Route path="/confirmation" element={<CustomerProtectedRoute><ConfirmationPage /></CustomerProtectedRoute>} />
+              <Route path="/my-bookings" element={<CustomerProtectedRoute><CustomerBookingsPage /></CustomerProtectedRoute>} />
 
               {/* Admin Routes */}
               <Route path="/admin/login" element={<AdminLogin />} />

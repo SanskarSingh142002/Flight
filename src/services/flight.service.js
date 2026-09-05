@@ -2,7 +2,7 @@ import apiClient from './api.client';
 
 /**
  * POST /api/flights/search
- * Returns live flight offers from the backend (Duffel or mock).
+ * Returns live flight offers from the backend SerpAPI integration.
  */
 export const searchFlights = async ({ from, to, departDate, passengers, cabinClass, tripType }) => {
   const res = await apiClient.post('/flights/search', {
