@@ -37,7 +37,7 @@ export default function AdminLayout({ children, title }) {
             <Plane className="w-5 h-5 text-white -rotate-45" />
           </div>
           <div>
-            <p className="text-white font-bold text-base leading-none">FlightConnect</p>
+            <p className="text-white font-bold text-base leading-none">FareOracle</p>
             <p className="text-gray-500 text-xs">Admin Panel</p>
           </div>
         </div>

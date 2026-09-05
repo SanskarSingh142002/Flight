@@ -98,7 +98,7 @@ export default function CustomerLoginPage() {
           </form>
 
           <p className="mt-6 text-center text-sm text-gray-500">
-            New to FlightConnect?{' '}
+            New to FareOracle?{' '}
             <Link to="/signup" className="font-bold text-emerald-700 hover:underline">Create an account</Link>
           </p>
         </div>

@@ -140,13 +140,13 @@ export default function ConfirmationPage() {
         <div className="card p-4 sm:p-6 mb-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
           <h3 className="font-bold mb-3">Need help? Contact us</h3>
           <div className="flex flex-col sm:flex-row gap-4">
-            <a href="tel:+911800001234" className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-3 rounded-xl transition-colors">
+            <a href="tel:+18885844337" className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-3 rounded-xl transition-colors">
               <Phone className="w-4 h-4 text-blue-300" />
-              <span className="text-sm">1800-001-234</span>
+              <span className="text-sm">Toll Free # +1 888 584 4337</span>
             </a>
-            <a href="mailto:support@flightconnect.in" className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-3 rounded-xl transition-colors">
+            <a href="mailto:Info@fareoracle.com" className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-3 rounded-xl transition-colors">
               <Mail className="w-4 h-4 text-blue-300" />
-              <span className="text-sm">support@flightconnect.in</span>
+              <span className="text-sm">Info@fareoracle.com</span>
             </a>
           </div>
         </div>

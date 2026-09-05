@@ -57,13 +57,13 @@ export default function AdminLogin() {
             <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center">
               <Plane className="w-5 h-5 text-white -rotate-45" />
             </div>
-            <span className="text-xl font-black text-white">FlightConnect</span>
+            <span className="text-xl font-black text-white">FareOracle</span>
           </div>
 
           <div className="bg-white rounded-2xl shadow-2xl p-5 sm:p-8">
             <div className="mb-8">
               <h1 className="text-2xl font-black text-gray-900 mb-1">Admin Sign In</h1>
-              <p className="text-sm text-gray-500">Access the FlightConnect operations dashboard</p>
+              <p className="text-sm text-gray-500">Access the FareOracle operations dashboard</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">

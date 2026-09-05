@@ -1,4 +1,4 @@
-import { Plane, Phone, Mail, MapPin, Globe, MessageCircle, Camera, Link as LinkIcon } from 'lucide-react'
+import { Phone, Mail, MapPin, Globe, MessageCircle, Camera, Link as LinkIcon } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 export default function Footer() {
@@ -8,11 +8,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center">
-                <Plane className="w-5 h-5 text-white -rotate-45" />
-              </div>
-              <span className="text-xl font-bold text-white">FlightConnect</span>
+            <div className="mb-4">
+              <span className="text-2xl font-black text-white">FareOracle</span>
             </div>
             <p className="text-sm leading-relaxed text-gray-400 mb-6">
               Your trusted partner for seamless flight search and booking. Live prices, professional service, and real-time support.
@@ -57,20 +54,20 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <Phone className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-sm text-white font-medium">1800-001-234</p>
+                  <p className="text-sm text-white font-medium">Toll Free # +1 888 584 4337</p>
                   <p className="text-xs text-gray-500">Mon–Sat, 9am–8pm</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-sm text-white font-medium">support@flightconnect.in</p>
+                  <p className="text-sm text-white font-medium">Info@fareoracle.com</p>
                   <p className="text-xs text-gray-500">24hr email response</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
-                <p className="text-sm text-gray-400">New Delhi, India 110001</p>
+                <p className="text-sm text-gray-400">626 Wilshire Blvd Suite 410<br />Los Angeles, CA 90017</p>
               </li>
             </ul>
           </div>
@@ -78,7 +75,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-gray-500">© 2026 FlightConnect. All rights reserved.</p>
+          <p className="text-sm text-gray-500">© 2026 FareOracle. All rights reserved.</p>
           <div className="flex items-center gap-2 flex-wrap justify-center">
             <span className="h-7 min-w-12 px-2 bg-white rounded-md flex items-center justify-center">
               <img src="https://cdn.simpleicons.org/visa/1A1F71" alt="Visa" className="h-4 w-auto" />

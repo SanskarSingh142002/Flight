@@ -586,7 +586,7 @@ export default function HomePage() {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest mb-2">Why FlightConnect</p>
+            <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest mb-2">Why FareOracle</p>
             <h2 className="text-3xl font-black text-white mb-3">Built Different</h2>
             <p className="text-white/40 max-w-md mx-auto">We're not just a search engine — we're your personal booking team.</p>
           </div>
@@ -623,7 +623,7 @@ export default function HomePage() {
             {[
               { name:'Rahul Sharma', role:'Business Traveller', city:'Delhi',  stars:5, text:'The search is fast and prices are always accurate. The team called me within an hour to confirm my Dubai booking. Absolutely seamless.' },
               { name:'Priya Nair',   role:'Family Holidayer',   city:'Kochi',  stars:5, text:'Booked 4 tickets to Goa for a family trip. The process was super simple, and I loved that a real person followed up to confirm everything.' },
-              { name:'Vikram Joshi', role:'Frequent Flyer',     city:'Mumbai', stars:5, text:'Tried many booking platforms. FlightConnect is the only one where someone actually calls to confirm. That kind of service is rare these days.' },
+              { name:'Vikram Joshi', role:'Frequent Flyer',     city:'Mumbai', stars:5, text:'Tried many booking platforms. FareOracle is the only one where someone actually calls to confirm. That kind of service is rare these days.' },
             ].map(t => (
               <div key={t.name} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                 <div className="flex items-center gap-0.5 mb-4">

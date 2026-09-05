@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Plane, Menu, X, Phone, LogOut, UserCircle } from 'lucide-react'
+import { Menu, X, Phone, LogOut, UserCircle } from 'lucide-react'
 import { useCustomerAuth } from '../context/CustomerAuthContext'
 
 export default function Navbar() {
@@ -30,16 +30,8 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
 
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-md shadow-blue-600/30 group-hover:shadow-blue-600/50 transition-shadow">
-              <Plane className="w-4 h-4 text-white -rotate-45" />
-            </div>
-            <div className="flex items-baseline gap-0.5">
-              <span className={`text-base sm:text-lg font-black tracking-tight transition-colors ${transparent ? 'text-white' : 'text-gray-900'}`}>
-                Flight
-              </span>
-              <span className="text-base sm:text-lg font-black tracking-tight text-blue-500">Connect</span>
-            </div>
+          <Link to="/" className={`text-xl sm:text-2xl font-black tracking-tight transition-colors ${transparent ? 'text-white' : 'text-gray-900'}`}>
+            FareOracle
           </Link>
 
           {/* Desktop nav */}
@@ -65,7 +57,7 @@ export default function Navbar() {
                 transparent ? 'text-white/70 hover:text-white' : 'text-gray-500 hover:text-gray-700'
               }`}>
               <Phone className="w-3.5 h-3.5" />
-              1800-001-234
+              +1 888 584 4337
             </a>
 
             {customerUser ? (
@@ -144,7 +136,7 @@ export default function Navbar() {
           ))}
           <div className="pt-3 border-t border-gray-100 flex items-center gap-2 px-3">
             <Phone className="w-4 h-4 text-blue-500" />
-            <span className="text-sm font-medium text-gray-600">1800-001-234</span>
+            <span className="text-sm font-medium text-gray-600">Toll Free # +1 888 584 4337</span>
           </div>
 
           {customerUser ? (

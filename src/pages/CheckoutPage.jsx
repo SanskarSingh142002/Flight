@@ -239,7 +239,7 @@ export default function CheckoutPage() {
               <div className="mt-4 bg-amber-50 border border-amber-200 rounded-xl p-3 flex items-start gap-2">
                 <AlertCircle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
                 <p className="text-xs text-amber-700">
-                  Card details are tokenized via our payment processor. FlightConnect never stores your full card number or CVV.
+                  Card details are tokenized via our payment processor. FareOracle never stores your full card number or CVV.
                 </p>
               </div>
             </div>
