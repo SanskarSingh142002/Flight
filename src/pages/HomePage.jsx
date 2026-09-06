@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   Plane, ArrowRightLeft, Calendar, Users, Search,
@@ -8,7 +8,7 @@ import {
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { useBooking } from '../context/BookingContext'
-import { AIRPORTS } from '../data/mockData'
+import { searchAirports } from '../services/flight.service'
 
 const TRIP_TYPES    = ['One Way', 'Round Trip', 'Multi-City']
 const CABIN_CLASSES = ['Economy', 'Premium Economy', 'Business', 'First Class']
@@ -19,15 +19,28 @@ const CABIN_CLASSES = ['Economy', 'Premium Economy', 'Business', 'First Class']
 function AirportField({ label, value, onChange, placeholder }) {
   const [open,  setOpen]  = useState(false)
   const [query, setQuery] = useState('')
+  const [airports, setAirports] = useState([])
+  const [selected, setSelected] = useState(null)
+  const [loading, setLoading] = useState(false)
 
-  const airports = AIRPORTS.filter((airport) =>
-    airport.city.toLowerCase().includes(query.toLowerCase()) ||
-    airport.code.toLowerCase().includes(query.toLowerCase()) ||
-    airport.name.toLowerCase().includes(query.toLowerCase())
-  ).slice(0, 12)
-  const selected = AIRPORTS.find((airport) => airport.code === value)
+  useEffect(() => {
+    if (query.trim().length < 2) {
+      setAirports([])
+      return undefined
+    }
+    let active = true
+    setLoading(true)
+    const timer = window.setTimeout(() => {
+      searchAirports(query)
+        .then((results) => { if (active) setAirports(results.slice(0, 12)) })
+        .catch(() => { if (active) setAirports([]) })
+        .finally(() => { if (active) setLoading(false) })
+    }, 250)
+    return () => { active = false; window.clearTimeout(timer) }
+  }, [query])
 
   const pick = (airport) => {
+    setSelected(airport)
     onChange(airport.code)
     setOpen(false)
     setQuery('')
@@ -93,7 +106,9 @@ function AirportField({ label, value, onChange, placeholder }) {
             </div>
             {/* Results */}
             <div className="max-h-72 overflow-y-auto">
-              {airports.length === 0 && (
+              {loading && <p className="px-4 py-6 text-sm text-white/40 text-center">Searching airports...</p>}
+              {!loading && query.trim().length < 2 && <p className="px-4 py-6 text-sm text-white/30 text-center">Type at least 2 characters</p>}
+              {!loading && query.trim().length >= 2 && airports.length === 0 && (
                 <p className="px-4 py-6 text-sm text-white/30 text-center">No airports found</p>
               )}
               {airports.map(airport => (
