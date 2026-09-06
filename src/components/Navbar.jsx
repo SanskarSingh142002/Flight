@@ -39,7 +39,8 @@ export default function Navbar() {
             {[
               { label: 'Home',         href: '/' },
               { label: 'How It Works', href: '/#how-it-works' },
-              { label: 'Contact',      href: '/#contact' },
+              { label: 'About',        href: '/about' },
+              { label: 'Contact',      href: '/contact' },
             ].map(item => (
               <a key={item.label} href={item.href}
                 className={`text-sm font-medium transition-colors hover:text-blue-500 ${
@@ -52,7 +53,7 @@ export default function Navbar() {
 
           {/* Right */}
           <div className="hidden md:flex items-center gap-3">
-            <a href="tel:+911800001234"
+            <a href="tel:+18885844337"
               className={`flex items-center gap-1.5 text-sm font-medium transition-colors ${
                 transparent ? 'text-white/70 hover:text-white' : 'text-gray-500 hover:text-gray-700'
               }`}>
@@ -127,8 +128,13 @@ export default function Navbar() {
       {/* Mobile menu */}
       {menuOpen && (
         <div className="md:hidden max-h-[calc(100vh-4rem)] overflow-y-auto bg-white border-t border-gray-100 px-4 py-4 space-y-1 shadow-xl animate-fade-in">
-          {['Home', 'How It Works', 'Contact'].map(item => (
-            <a key={item} href={item === 'Home' ? '/' : `/#${item.toLowerCase().replace(/ /g, '-')}`}
+          {[
+            { label: 'Home', href: '/' },
+            { label: 'How It Works', href: '/#how-it-works' },
+            { label: 'About', href: '/about' },
+            { label: 'Contact', href: '/contact' },
+          ].map(item => (
+            <a key={item.label} href={item.href}
               onClick={() => setMenuOpen(false)}
               className="block py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-blue-600 transition-colors">
               {item}

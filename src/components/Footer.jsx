@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-300" id="contact">
+    <footer className="flex-shrink-0 bg-gray-900 text-gray-300" id="contact">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
@@ -27,9 +27,15 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold mb-5">Quick Links</h3>
             <ul className="space-y-3">
-              {['Home', 'Search Flights', 'How It Works', 'About Us', 'Contact'].map(link => (
-                <li key={link}>
-                  <a href="#" className="text-sm text-gray-400 hover:text-blue-400 transition-colors">{link}</a>
+              {[
+                { label: 'Home', href: '/' },
+                { label: 'Search Flights', href: '/#search' },
+                { label: 'How It Works', href: '/#how-it-works' },
+                { label: 'About Us', href: '/about' },
+                { label: 'Contact', href: '/contact' },
+              ].map(link => (
+                <li key={link.label}>
+                  <a href={link.href} className="text-sm text-gray-400 hover:text-blue-400 transition-colors">{link.label}</a>
                 </li>
               ))}
             </ul>
