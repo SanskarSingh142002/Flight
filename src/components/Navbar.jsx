@@ -20,6 +20,25 @@ export default function Navbar() {
 
   const transparent = isHome && !scrolled && !menuOpen
 
+  const navLinks = [
+    { label: 'Home',         href: '/' },
+    { label: 'How It Works', href: '/#how-it-works' },
+    { label: 'About',        href: '/about' },
+    { label: 'Contact',      href: '/contact' },
+  ]
+
+  const handleNavClick = (e, href) => {
+    setMenuOpen(false)
+    if (href.startsWith('/#')) {
+      const targetId = href.replace('/#', '')
+      if (location.pathname === '/') {
+        e.preventDefault()
+        const el = document.getElementById(targetId)
+        if (el) el.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+  }
+
   return (
     <nav className={`fixed inset-x-0 top-0 z-50 w-full max-w-full overflow-x-clip transition-all duration-300 ${
       transparent
@@ -36,19 +55,31 @@ export default function Navbar() {
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-7">
-            {[
-              { label: 'Home',         href: '/' },
-              { label: 'How It Works', href: '/#how-it-works' },
-              { label: 'About',        href: '/about' },
-              { label: 'Contact',      href: '/contact' },
-            ].map(item => (
-              <a key={item.label} href={item.href}
-                className={`text-sm font-medium transition-colors hover:text-blue-500 ${
-                  transparent ? 'text-white/80' : 'text-gray-600'
-                }`}>
-                {item.label}
-              </a>
-            ))}
+            {navLinks.map(item => {
+              const isHash = item.href.startsWith('/#')
+              return isHash ? (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
+                  className={`text-sm font-medium transition-colors hover:text-blue-500 ${
+                    transparent ? 'text-white/80' : 'text-gray-600'
+                  }`}
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  className={`text-sm font-medium transition-colors hover:text-blue-500 ${
+                    transparent ? 'text-white/80' : 'text-gray-600'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              )
+            })}
           </div>
 
           {/* Right */}
@@ -128,18 +159,28 @@ export default function Navbar() {
       {/* Mobile menu */}
       {menuOpen && (
         <div className="md:hidden max-h-[calc(100vh-4rem)] overflow-y-auto bg-white border-t border-gray-100 px-4 py-4 space-y-1 shadow-xl animate-fade-in">
-          {[
-            { label: 'Home', href: '/' },
-            { label: 'How It Works', href: '/#how-it-works' },
-            { label: 'About', href: '/about' },
-            { label: 'Contact', href: '/contact' },
-          ].map(item => (
-            <a key={item.label} href={item.href}
-              onClick={() => setMenuOpen(false)}
-              className="block py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-blue-600 transition-colors">
-              {item.label}
-            </a>
-          ))}
+          {navLinks.map(item => {
+            const isHash = item.href.startsWith('/#')
+            return isHash ? (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
+                className="block py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-blue-600 transition-colors"
+              >
+                {item.label}
+              </a>
+            ) : (
+              <Link
+                key={item.label}
+                to={item.href}
+                onClick={() => setMenuOpen(false)}
+                className="block py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-blue-600 transition-colors"
+              >
+                {item.label}
+              </Link>
+            )
+          })}
           <div className="pt-3 border-t border-gray-100 flex items-center gap-2 px-3">
             <Phone className="w-4 h-4 text-blue-500" />
             <span className="text-sm font-medium text-gray-600">Toll Free # +1 888 584 4337</span>
