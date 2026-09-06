@@ -137,7 +137,7 @@ export default function Navbar() {
             <a key={item.label} href={item.href}
               onClick={() => setMenuOpen(false)}
               className="block py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-blue-600 transition-colors">
-              {item}
+              {item.label}
             </a>
           ))}
           <div className="pt-3 border-t border-gray-100 flex items-center gap-2 px-3">
