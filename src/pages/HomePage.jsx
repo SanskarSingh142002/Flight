@@ -57,6 +57,7 @@ function AirportField({ label, value, onChange, placeholder }) {
       <button
         type="button"
         onClick={() => { setOpen(true); setQuery('') }}
+        onTouchStart={() => { setOpen(true); setQuery('') }}
         className="w-full text-left focus:outline-none rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4 shadow-inner shadow-black/20 transition-all duration-200 hover:border-blue-400/40 hover:bg-white/[0.05]"
       >
         {selected ? (
@@ -89,6 +90,7 @@ function AirportField({ label, value, onChange, placeholder }) {
           <div
             className="fixed inset-0 z-30"
             onClick={() => { setOpen(false); setQuery('') }}
+            onTouchStart={() => { setOpen(false); setQuery('') }}
           />
           <div className="absolute z-[70] top-full left-0 right-0 sm:right-auto sm:w-88 max-w-[calc(100vw-2.5rem)] mt-2 bg-[#0f1629] border border-white/10 rounded-2xl shadow-2xl shadow-black/60 overflow-hidden">
             {/* Search input */}
@@ -117,6 +119,7 @@ function AirportField({ label, value, onChange, placeholder }) {
                   type="button"
                   onMouseDown={e => e.preventDefault()} /* prevent input blur */
                   onClick={() => pick(airport)}
+                  onTouchStart={() => pick(airport)}
                   className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 text-left transition-colors border-b border-white/5 last:border-0"
                 >
                   <div className="w-11 h-11 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center shrink-0">
@@ -170,7 +173,7 @@ function DateField({ label, value, min, onChange, disabled, dimmed }) {
       className={`relative transition-opacity h-full ${dimmed ? 'opacity-30 pointer-events-none' : 'cursor-pointer'}`}
       onClick={openPicker}
     >
-      <div className="w-full text-left bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-2xl px-4 py-3.5 transition-all duration-200 h-full flex flex-col justify-center pointer-events-none">
+      <div className="w-full text-left bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-2xl px-4 py-3.5 transition-all duration-200 h-full flex flex-col justify-center">
         <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2 flex items-center gap-1.5">
           <Calendar className="w-3 h-3" /> {label}
         </p>
@@ -191,7 +194,7 @@ function DateField({ label, value, min, onChange, disabled, dimmed }) {
         value={value}
         onChange={onChange}
         disabled={disabled}
-        className="sr-only"
+        className="absolute inset-0 opacity-0 cursor-pointer"
       />
     </div>
   )
