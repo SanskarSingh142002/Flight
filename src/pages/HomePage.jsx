@@ -57,7 +57,6 @@ function AirportField({ label, value, onChange, placeholder }) {
       <button
         type="button"
         onClick={() => { setOpen(true); setQuery('') }}
-        onTouchStart={() => { setOpen(true); setQuery('') }}
         className="w-full text-left focus:outline-none rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4 shadow-inner shadow-black/20 transition-all duration-200 hover:border-blue-400/40 hover:bg-white/[0.05]"
       >
         {selected ? (
@@ -90,7 +89,6 @@ function AirportField({ label, value, onChange, placeholder }) {
           <div
             className="fixed inset-0 z-30"
             onClick={() => { setOpen(false); setQuery('') }}
-            onTouchStart={() => { setOpen(false); setQuery('') }}
           />
           <div className="absolute z-[70] top-full left-0 right-0 sm:right-auto sm:w-88 max-w-[calc(100vw-2.5rem)] mt-2 bg-[#0f1629] border border-white/10 rounded-2xl shadow-2xl shadow-black/60 overflow-hidden">
             {/* Search input */}
@@ -101,7 +99,7 @@ function AirportField({ label, value, onChange, placeholder }) {
                   autoFocus
                   value={query}
                   onChange={e => setQuery(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2.5 text-sm bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="w-full pl-9 pr-4 py-2.5 text-base sm:text-sm bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   placeholder="Search city or airport..."
                 />
               </div>
@@ -119,8 +117,7 @@ function AirportField({ label, value, onChange, placeholder }) {
                   type="button"
                   onMouseDown={e => e.preventDefault()} /* prevent input blur */
                   onClick={() => pick(airport)}
-                  onTouchStart={() => pick(airport)}
-                  className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 text-left transition-colors border-b border-white/5 last:border-0"
+                  className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 text-left transition-colors border-b border-white/5 last:border-0 cursor-pointer"
                 >
                   <div className="w-11 h-11 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center shrink-0">
                     <span className="text-xs font-black text-blue-400">{airport.code}</span>
@@ -149,22 +146,47 @@ function AirportField({ label, value, onChange, placeholder }) {
 function DateField({ label, value, min, onChange, disabled, dimmed }) {
   const inputRef = useRef(null)
 
-  const fmt = v =>
-    new Date(v + 'T00:00:00').toLocaleDateString('en-US', {
-      day: 'numeric', month: 'short', year: '2-digit',
-    })
-  const day = v =>
-    new Date(v + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'long' })
+  const parseSafeDate = (v) => {
+    if (!v) return null
+    const parts = String(v).split('-')
+    if (parts.length === 3) {
+      const d = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]))
+      if (!isNaN(d.getTime())) return d
+    }
+    const d = new Date(v)
+    return isNaN(d.getTime()) ? null : d
+  }
+
+  const fmt = (v) => {
+    const d = parseSafeDate(v)
+    return d
+      ? d.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: '2-digit' })
+      : ''
+  }
+
+  const day = (v) => {
+    const d = parseSafeDate(v)
+    return d
+      ? d.toLocaleDateString('en-US', { weekday: 'long' })
+      : ''
+  }
 
   const openPicker = () => {
     if (disabled || dimmed) return
     const el = inputRef.current
     if (!el) return
     try {
-      el.showPicker()
+      if (typeof el.showPicker === 'function') {
+        el.showPicker()
+      } else {
+        el.focus()
+      }
     } catch {
-      el.focus()
-      el.click()
+      try {
+        el.focus()
+      } catch {
+        // no-op
+      }
     }
   }
 
@@ -173,7 +195,8 @@ function DateField({ label, value, min, onChange, disabled, dimmed }) {
       className={`relative transition-opacity h-full ${dimmed ? 'opacity-30 pointer-events-none' : 'cursor-pointer'}`}
       onClick={openPicker}
     >
-      <div className="w-full text-left bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-2xl px-4 py-3.5 transition-all duration-200 h-full flex flex-col justify-center">
+      {/* Visual card: pointer-events-none allows touch to hit the native input overlay directly on iOS */}
+      <div className="w-full text-left bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-2xl px-4 py-3.5 transition-all duration-200 h-full flex flex-col justify-center pointer-events-none select-none">
         <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2 flex items-center gap-1.5">
           <Calendar className="w-3 h-3" /> {label}
         </p>
@@ -194,7 +217,8 @@ function DateField({ label, value, min, onChange, disabled, dimmed }) {
         value={value}
         onChange={onChange}
         disabled={disabled}
-        className="absolute inset-0 opacity-0 cursor-pointer"
+        aria-label={label}
+        className="absolute inset-0 w-full h-full opacity-0 z-20 cursor-pointer disabled:cursor-not-allowed"
       />
     </div>
   )
