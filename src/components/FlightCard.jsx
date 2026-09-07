@@ -1,12 +1,12 @@
 import { Plane, Clock, Luggage, ArrowRight, Utensils, RefreshCw, ChevronDown, ChevronUp } from 'lucide-react'
 import { useState } from 'react'
 
+import { formatUSD } from '../utils/currency'
+
 export default function FlightCard({ flight, onSelect, selected }) {
   const [expanded, setExpanded] = useState(false)
 
-  const formatPrice = (price) => {
-    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(price)
-  }
+  const formatPrice = (price) => formatUSD(price, flight.currency)
 
   return (
     <div className={`card overflow-hidden transition-all duration-200 ${selected ? 'ring-2 ring-blue-500 shadow-blue-100' : 'hover:border-blue-200'}`}>

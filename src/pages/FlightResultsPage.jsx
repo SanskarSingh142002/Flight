@@ -8,6 +8,7 @@ import StepIndicator from '../components/StepIndicator'
 import { useBooking } from '../context/BookingContext'
 import { searchFlights } from '../services/flight.service'
 import { AIRPORTS } from '../data/mockData'
+import { formatUSD } from '../utils/currency'
 
 function SkeletonCard() {
   return (
@@ -46,7 +47,7 @@ export default function FlightResultsPage() {
   const [filterOpen, setFilterOpen] = useState(false)
 
   // Filters
-  const [maxPrice, setMaxPrice] = useState(200000)
+  const [maxPrice, setMaxPrice] = useState(2500)
   const [stopsFilter, setStopsFilter] = useState([])
   const [airlinesFilter, setAirlinesFilter] = useState([])
   const [depTimeFilter, setDepTimeFilter] = useState([])
@@ -61,7 +62,7 @@ export default function FlightResultsPage() {
       .then((data) => {
         setFlights(data)
         if (data.length > 0) {
-          setMaxPrice(Math.max(...data.map((f) => f.pricePerPerson)) + 1000)
+          setMaxPrice(Math.max(...data.map((f) => f.pricePerPerson)) + 50)
         }
       })
       .catch((err) => setError(err.message || 'Failed to load flights. Please try again.'))
@@ -96,7 +97,7 @@ export default function FlightResultsPage() {
 
   const fromCity = AIRPORTS.find((a) => a.code === searchParams?.from)?.city || searchParams?.from
   const toCity   = AIRPORTS.find((a) => a.code === searchParams?.to)?.city   || searchParams?.to
-  const formatPrice = (p) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(p)
+  const formatPrice = (p) => formatUSD(p)
 
   if (!searchParams) return null
 
@@ -112,10 +113,10 @@ export default function FlightResultsPage() {
       {/* Price */}
       <div className="mb-5 pb-5 border-b border-gray-100">
         <h4 className="text-sm font-semibold text-gray-700 mb-3">Max Price / Person</h4>
-        <input type="range" min={1000} max={200000} step={500} value={maxPrice}
-          onChange={(e) => setMaxPrice(Number(e.target.value))} className="w-full accent-blue-600" />
+        <input type="range" min={50} max={2500} step={25} value={maxPrice}
+          onChange={(e) => setMaxPrice(Number(e.target.value))} className="w-full accent-blue-600 cursor-pointer" />
         <div className="flex justify-between text-xs text-gray-500 mt-1">
-          <span>₹1,000</span>
+          <span>$50</span>
           <span className="font-semibold text-blue-600">{formatPrice(maxPrice)}</span>
         </div>
       </div>
@@ -257,7 +258,7 @@ export default function FlightResultsPage() {
 
       {/* Sticky continue bar */}
       {selectedId && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-2xl z-40 animate-slide-up">
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-2xl z-40 animate-slide-up pb-[max(0.75rem,env(safe-area-inset-bottom))]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center">

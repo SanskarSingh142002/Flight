@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import StepIndicator from '../components/StepIndicator'
 import { useBooking } from '../context/BookingContext'
 import { AIRPORTS } from '../data/mockData'
+import { formatUSD } from '../utils/currency'
 
 export default function ConfirmationPage() {
   const navigate = useNavigate()
@@ -19,7 +20,7 @@ export default function ConfirmationPage() {
 
   const fromCity = AIRPORTS.find(a => a.code === selectedFlight.from)?.city || selectedFlight.from
   const toCity = AIRPORTS.find(a => a.code === selectedFlight.to)?.city || selectedFlight.to
-  const formatPrice = (p) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(p)
+  const formatPrice = (p) => formatUSD(p, selectedFlight?.currency)
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">

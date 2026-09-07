@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { ArrowLeft, Plane, User, CreditCard, Phone, Mail, MessageSquare, Shield, CheckCircle, Save, AlertCircle, RefreshCw } from 'lucide-react'
 import AdminLayout from '../../components/AdminLayout'
 import { getBookingById, updateBookingStatus, updateBookingNotes, updatePaymentStatus } from '../../services/admin.service'
+import { formatUSD } from '../../utils/currency'
 import { useAdminAuth } from '../../context/AdminAuthContext'
 
 const STATUS_CONFIG = {
@@ -89,7 +90,7 @@ export default function AdminBookingDetail() {
     }
   }
 
-  const formatPrice = (p) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(p)
+  const formatPrice = (p) => formatUSD(p, booking?.payment?.currency)
   const formatDate  = (d) => new Date(d).toLocaleString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })
 
   if (loading) return (

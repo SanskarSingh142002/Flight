@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Clock, CheckCircle, Plane, IndianRupee, ArrowRight, BarChart3, AlertCircle, User, Phone, Mail, CreditCard } from 'lucide-react'
+import { Clock, CheckCircle, Plane, DollarSign, ArrowRight, BarChart3, AlertCircle, User, Phone, Mail, CreditCard } from 'lucide-react'
 import AdminLayout from '../../components/AdminLayout'
 import { getDashboard } from '../../services/admin.service'
+import { formatUSD } from '../../utils/currency'
 
 const STATUS_CONFIG = {
   new:        { label: 'New',        color: 'bg-blue-100 text-blue-700',   dot: 'bg-blue-500'   },
@@ -30,7 +31,7 @@ export default function AdminDashboard() {
       .finally(() => setLoading(false))
   }, [])
 
-  const formatPrice = (p) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(p)
+  const formatPrice = (p) => formatUSD(p)
   const formatDate  = (d) => new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
 
   if (loading) return (
@@ -52,7 +53,7 @@ export default function AdminDashboard() {
 
   const statCards = [
     { label: 'Total Bookings',    value: stats.total,               icon: Plane,         color: 'bg-blue-50',   iconColor: 'text-blue-600',   sub: 'All time' },
-    { label: 'Revenue Collected', value: formatPrice(stats.revenue), icon: IndianRupee,   color: 'bg-green-50',  iconColor: 'text-green-600',  sub: `${stats.byPayment?.paid || 0} paid bookings` },
+    { label: 'Revenue Collected', value: formatPrice(stats.revenue), icon: DollarSign,   color: 'bg-green-50',  iconColor: 'text-green-600',  sub: `${stats.byPayment?.paid || 0} paid bookings` },
     { label: 'Pending Action',    value: (stats.byStatus?.new || 0) + (stats.byStatus?.contacted || 0), icon: Clock, color: 'bg-yellow-50', iconColor: 'text-yellow-600', sub: 'Needs follow-up' },
     { label: 'Completed',         value: stats.byStatus?.completed || 0, icon: CheckCircle, color: 'bg-purple-50', iconColor: 'text-purple-600', sub: `${stats.total ? Math.round(((stats.byStatus?.completed||0)/stats.total)*100) : 0}% success rate` },
   ]

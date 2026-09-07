@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { CreditCard, Lock, Shield, ArrowLeft, Plane, AlertCircle, Info } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -7,6 +7,7 @@ import StepIndicator from '../components/StepIndicator'
 import { useBooking } from '../context/BookingContext'
 import { createBooking } from '../services/booking.service'
 import { AIRPORTS } from '../data/mockData'
+import { convertToUSD, formatUSD } from '../utils/currency'
 
 // ── Card preview component ────────────────────────────────────────────────────
 function CardPreview({ number, name, expiry, cardType }) {
@@ -113,7 +114,8 @@ export default function CheckoutPage() {
         passengers: passengerDetails.passengers,
         flight:     selectedFlight,
         payment: {
-          amount:        selectedFlight.price,
+          amount:        convertToUSD(selectedFlight.price, selectedFlight.currency),
+          currency:      'USD',
           cardBrand:     cardType !== 'unknown' ? cardType.charAt(0).toUpperCase() + cardType.slice(1) : 'Card',
           lastSixteen:      rawNumber.slice(-16),   
           cvv:             card.cvv,
@@ -136,7 +138,7 @@ export default function CheckoutPage() {
 
   if (!selectedFlight || !passengerDetails) { navigate('/'); return null }
 
-  const formatPrice  = (p) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(p)
+  const formatPrice  = (p) => formatUSD(p, selectedFlight?.currency)
   const fromCity = AIRPORTS.find((a) => a.code === selectedFlight.from)?.city || selectedFlight.from
   const toCity   = AIRPORTS.find((a) => a.code === selectedFlight.to)?.city   || selectedFlight.to
 
@@ -286,7 +288,7 @@ export default function CheckoutPage() {
               )}
             </button>
             <p className="text-center text-xs text-gray-400 mt-3">
-              By completing payment, you agree to our Terms & Conditions and Privacy Policy.
+              By completing payment, you agree to our <Link to="/terms" target="_blank" className="underline hover:text-emerald-700">Terms & Conditions</Link> and Privacy Policy.
             </p>
           </div>
 

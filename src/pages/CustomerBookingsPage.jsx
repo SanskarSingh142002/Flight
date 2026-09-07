@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { getMyBookings } from '../services/booking.service'
+import { formatUSD } from '../utils/currency'
 
 const statusStyles = {
   new: 'bg-amber-50 text-amber-700 border-amber-200',
@@ -13,9 +14,7 @@ const statusStyles = {
   cancelled: 'bg-red-50 text-red-700 border-red-200',
 }
 
-const formatPrice = (value) => new Intl.NumberFormat('en-IN', {
-  style: 'currency', currency: 'INR', maximumFractionDigits: 0,
-}).format(value || 0)
+const formatPrice = (value, currency = 'USD') => formatUSD(value, currency)
 
 export default function CustomerBookingsPage() {
   const [bookings, setBookings] = useState([])

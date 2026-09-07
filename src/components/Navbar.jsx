@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Menu, X, Phone, LogOut, UserCircle } from 'lucide-react'
-import { useCustomerAuth } from '../context/CustomerAuthContext'
+import { Menu, X, Phone, LogOut } from 'lucide-react'
+import { useAdminAuth } from '../context/AdminAuthContext'
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -9,7 +9,7 @@ export default function Navbar() {
   const location = useLocation()
   const navigate = useNavigate()
   const isHome = location.pathname === '/'
-  const { customerUser, logout } = useCustomerAuth()
+  const { adminUser, logout: adminLogout } = useAdminAuth()
 
   useEffect(() => {
     if (!isHome) { setScrolled(true); return }
@@ -92,27 +92,19 @@ export default function Navbar() {
               +1 888 584 4337
             </a>
 
-            {customerUser ? (
+            {adminUser && (
               <>
-                <Link to="/my-bookings"
+                <Link to="/admin"
                   className={`text-xs font-semibold px-3 py-2 rounded-lg transition-all ${
-                    transparent ? 'text-white/80 hover:text-white hover:bg-white/10' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    transparent ? 'text-white/90 hover:text-white hover:bg-white/10' : 'text-blue-600 hover:text-blue-800 hover:bg-blue-50'
                   }`}>
-                  My Trips
+                  Admin Panel
                 </Link>
-                <div className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium ${
-                  transparent
-                    ? 'border-white/20 text-white/80 bg-white/5'
-                    : 'border-gray-200 text-gray-700 bg-gray-50'
-                }`}>
-                  <UserCircle className="w-4 h-4" />
-                  <span>{customerUser.name}</span>
-                </div>
                 <button
                   type="button"
                   onClick={() => {
-                    logout()
-                    navigate('/')
+                    adminLogout()
+                    navigate('/admin/login')
                   }}
                   className={`flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg border transition-all ${
                     transparent
@@ -124,25 +116,6 @@ export default function Navbar() {
                   Logout
                 </button>
               </>
-            ) : (
-              <div className="flex items-center gap-2">
-                <Link to="/signin"
-                  className={`text-xs font-semibold px-3 py-2 rounded-lg transition-all ${
-                    transparent
-                      ? 'text-white/80 hover:text-white hover:bg-white/10'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                  }`}>
-                  Sign In
-                </Link>
-                <Link to="/signup"
-                  className={`text-xs font-semibold px-4 py-2 rounded-lg border transition-all ${
-                    transparent
-                      ? 'border-white/20 text-white/70 hover:text-white hover:border-white/40 hover:bg-white/10'
-                      : 'border-gray-200 text-gray-500 hover:text-gray-700 hover:border-gray-300 hover:bg-gray-50'
-                  }`}>
-                  Sign Up
-                </Link>
-              </div>
             )}
           </div>
 
@@ -186,39 +159,24 @@ export default function Navbar() {
             <span className="text-sm font-medium text-gray-600">Toll Free # +1 888 584 4337</span>
           </div>
 
-          {customerUser ? (
-            <>
-              <Link to="/my-bookings" onClick={() => setMenuOpen(false)}
-                className="block py-2.5 px-3 text-sm font-semibold text-emerald-700 rounded-lg hover:bg-emerald-50 transition-colors">
-                My Trips
+          {adminUser && (
+            <div className="pt-2 border-t border-gray-100">
+              <Link to="/admin" onClick={() => setMenuOpen(false)}
+                className="block py-2.5 px-3 text-sm font-semibold text-blue-700 rounded-lg hover:bg-blue-50 transition-colors">
+                Admin Panel
               </Link>
-              <div className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700">
-                <UserCircle className="w-4 h-4 text-blue-600" />
-                {customerUser.name}
-              </div>
               <button
                 type="button"
                 onClick={() => {
-                  logout()
+                  adminLogout()
                   setMenuOpen(false)
-                  navigate('/')
+                  navigate('/admin/login')
                 }}
                 className="flex w-full items-center gap-2 px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-blue-600 transition-colors"
               >
                 <LogOut className="w-4 h-4" />
-                Logout
+                Logout (Admin)
               </button>
-            </>
-          ) : (
-            <div className="grid grid-cols-2 gap-2 pt-2">
-              <Link to="/signin" onClick={() => setMenuOpen(false)}
-                className="block py-2.5 px-3 text-center text-sm font-semibold text-gray-700 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
-                Sign In
-              </Link>
-              <Link to="/signup" onClick={() => setMenuOpen(false)}
-                className="block py-2.5 px-3 text-center text-sm font-semibold text-white rounded-lg bg-emerald-700 hover:bg-emerald-800 transition-colors">
-                Sign Up
-              </Link>
             </div>
           )}
         </div>

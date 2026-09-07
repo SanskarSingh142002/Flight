@@ -32,9 +32,9 @@ export function CustomerAuthProvider({ children }) {
     try {
       const res = await customerLogin(email, password)
       setCustomerUser(res.user)
-      return { success: true }
+      return { success: true, user: res.user }
     } catch (err) {
-      return { success: false, error: err.message || 'Invalid email or password.' }
+      return { success: false, error: err.message || 'Invalid username/email or password.' }
     }
   }
 

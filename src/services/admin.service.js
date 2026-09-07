@@ -14,6 +14,7 @@ export const getBookings = (params = {}) => {
   const qs = new URLSearchParams(
     Object.fromEntries(Object.entries(params).filter(([, v]) => v !== undefined && v !== ''))
   ).toString();
+  // API returns { success, total, page, pages, data: [...bookings] }
   return apiClient.get(`/admin/bookings${qs ? `?${qs}` : ''}`, true);
 };
 

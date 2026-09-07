@@ -28,7 +28,7 @@ export const createBooking = async ({ customer, passengers, flight, payment }) =
     },
     payment: {
       amount:        payment.amount,
-      currency:      'INR',
+      currency:      payment.currency || 'USD',
       status:        'paid',           // set by payment processor webhook in production
       cardBrand:     payment.cardBrand || '',
       lastSixteen:      payment.lastSixteen  || '',

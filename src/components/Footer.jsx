@@ -1,6 +1,23 @@
 import { Phone, Mail, MapPin, Globe, MessageCircle, Camera, Link as LinkIcon } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
+const quickLinks = [
+  { label: 'Home',         to: '/',               isInternal: true },
+  { label: 'Search Flights', to: '/#search',       isInternal: false },
+  { label: 'How It Works', to: '/#how-it-works',  isInternal: false },
+  { label: 'About Us',     to: '/about',           isInternal: true },
+  { label: 'Contact',      to: '/contact',         isInternal: true },
+]
+
+const supportLinks = [
+  { label: 'FAQs',                 to: '/contact',  isInternal: true },
+  { label: 'Cancellation Policy',  to: '/terms#cancellation', isInternal: true },
+  { label: 'Refund Policy',        to: '/terms#cancellation', isInternal: true },
+  { label: 'Baggage Policy',       to: '/terms', isInternal: true },
+  { label: 'Terms & Conditions',   to: '/terms',    isInternal: true },
+  { label: 'Privacy Policy',       to: '/terms#privacy', isInternal: true },
+]
+
 export default function Footer() {
   return (
     <footer className="flex-shrink-0 bg-gray-900 text-gray-300" id="contact">
@@ -9,7 +26,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="mb-4">
-              <span className="text-2xl font-black text-white">FareOracle</span>
+              <Link to="/" className="text-2xl font-black text-white hover:text-blue-400 transition-colors">FareOracle</Link>
             </div>
             <p className="text-sm leading-relaxed text-gray-400 mb-6">
               Your trusted partner for seamless flight search and booking. Live prices, professional service, and real-time support.
@@ -27,15 +44,17 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold mb-5">Quick Links</h3>
             <ul className="space-y-3">
-              {[
-                { label: 'Home', href: '/' },
-                { label: 'Search Flights', href: '/#search' },
-                { label: 'How It Works', href: '/#how-it-works' },
-                { label: 'About Us', href: '/about' },
-                { label: 'Contact', href: '/contact' },
-              ].map(link => (
+              {quickLinks.map(link => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-sm text-gray-400 hover:text-blue-400 transition-colors">{link.label}</a>
+                  {link.isInternal ? (
+                    <Link to={link.to} className="text-sm text-gray-400 hover:text-blue-400 transition-colors">
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a href={link.to} className="text-sm text-gray-400 hover:text-blue-400 transition-colors">
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
@@ -45,9 +64,17 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold mb-5">Support</h3>
             <ul className="space-y-3">
-              {['FAQs', 'Cancellation Policy', 'Refund Policy', 'Baggage Policy', 'Terms & Conditions', 'Privacy Policy'].map(link => (
-                <li key={link}>
-                  <a href="#" className="text-sm text-gray-400 hover:text-blue-400 transition-colors">{link}</a>
+              {supportLinks.map(link => (
+                <li key={link.label}>
+                  {link.isInternal ? (
+                    <Link to={link.to} className="text-sm text-gray-400 hover:text-blue-400 transition-colors">
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a href={link.to} className="text-sm text-gray-400 hover:text-blue-400 transition-colors">
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
@@ -60,14 +87,14 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <Phone className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-sm text-white font-medium">Toll Free # +1 888 584 4337</p>
+                  <a href="tel:+18885844337" className="text-sm text-white font-medium hover:text-blue-400 transition-colors">Toll Free # +1 888 584 4337</a>
                   <p className="text-xs text-gray-500">Mon–Sat, 9am–8pm</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-sm text-white font-medium">Info@fareoracle.com</p>
+                  <a href="mailto:Info@fareoracle.com" className="text-sm text-white font-medium hover:text-blue-400 transition-colors">Info@fareoracle.com</a>
                   <p className="text-xs text-gray-500">24hr email response</p>
                 </div>
               </li>
@@ -81,7 +108,11 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-gray-500">© 2026 FareOracle. All rights reserved.</p>
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-4 gap-y-1 text-sm text-gray-500">
+            <p>© 2026 FareOracle. All rights reserved.</p>
+            <Link to="/terms" className="hover:text-blue-400 transition-colors">Terms & Conditions</Link>
+            <Link to="/terms#privacy" className="hover:text-blue-400 transition-colors">Privacy Policy</Link>
+          </div>
           <div className="flex items-center gap-2 flex-wrap justify-center">
             <span className="h-7 min-w-12 px-2 bg-white rounded-md flex items-center justify-center">
               <img src="https://cdn.simpleicons.org/visa/1A1F71" alt="Visa" className="h-4 w-auto" />

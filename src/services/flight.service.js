@@ -1,8 +1,10 @@
 import apiClient from './api.client';
+import { convertToUSD } from '../utils/currency';
 
 /**
  * POST /api/flights/search
- * Returns live flight offers from the backend SerpAPI integration.
+ * Returns flight offers converted to USD.
+ * API response shape: { success, count, data: [...flights], meta }
  */
 export const searchFlights = async ({ from, to, departDate, passengers, cabinClass, tripType }) => {
   const res = await apiClient.post('/flights/search', {
@@ -13,7 +15,23 @@ export const searchFlights = async ({ from, to, departDate, passengers, cabinCla
     cabinClass,
     tripType,
   });
-  return res.data; // array of flight objects
+
+  const rawFlights = Array.isArray(res.data) ? res.data : [];
+  const passengerCount = Number(passengers) || 1;
+
+  // Ensure every flight price is properly converted from INR to USD
+  return rawFlights.map((flight) => {
+    const rawPrice = Number(flight.pricePerPerson ?? flight.price ?? 0);
+    const usdPricePerPerson = convertToUSD(rawPrice, flight.currency);
+    const usdTotalPrice = usdPricePerPerson * passengerCount;
+
+    return {
+      ...flight,
+      pricePerPerson: usdPricePerPerson,
+      price: usdTotalPrice,
+      currency: 'USD',
+    };
+  });
 };
 
 /**
@@ -22,5 +40,5 @@ export const searchFlights = async ({ from, to, departDate, passengers, cabinCla
  */
 export const searchAirports = async (query = '') => {
   const res = await apiClient.get(`/flights/airports${query ? `?q=${encodeURIComponent(query)}` : ''}`);
-  return res.data;
+  return Array.isArray(res.data) ? res.data : [];
 };

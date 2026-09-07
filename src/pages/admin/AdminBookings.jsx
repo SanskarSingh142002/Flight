@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { Search, ChevronDown, ChevronUp, Plane, Eye, ArrowUpDown, RefreshCw, AlertCircle } from 'lucide-react'
 import AdminLayout from '../../components/AdminLayout'
 import { getBookings } from '../../services/admin.service'
+import { formatUSD } from '../../utils/currency'
 
 const STATUS_CONFIG = {
   new:        { label: 'New',        color: 'bg-blue-100 text-blue-700',    dot: 'bg-blue-500'   },
@@ -64,7 +65,7 @@ export default function AdminBookings() {
     </button>
   )
 
-  const formatPrice = (p) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(p)
+  const formatPrice = (p) => formatUSD(p)
   const formatDate  = (d) => new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
 
   return (

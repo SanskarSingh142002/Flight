@@ -90,7 +90,7 @@ function AirportField({ label, value, onChange, placeholder }) {
             className="fixed inset-0 z-30"
             onClick={() => { setOpen(false); setQuery('') }}
           />
-          <div className="absolute z-[70] top-full left-0 w-[min(84vw,22rem)] mt-4 bg-[#0f1629] border border-white/10 rounded-2xl shadow-2xl shadow-black/60 overflow-hidden">
+          <div className="absolute z-[70] top-full left-0 right-0 sm:right-auto sm:w-88 max-w-[calc(100vw-2.5rem)] mt-2 bg-[#0f1629] border border-white/10 rounded-2xl shadow-2xl shadow-black/60 overflow-hidden">
             {/* Search input */}
             <div className="p-3 border-b border-white/10 bg-white/[0.03]">
               <div className="relative">
@@ -142,46 +142,47 @@ function AirportField({ label, value, onChange, placeholder }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // Date field — dark, custom-styled over a native <input type="date">
 // ─────────────────────────────────────────────────────────────────────────────
+
 function DateField({ label, value, min, onChange, disabled, dimmed }) {
   const inputRef = useRef(null)
 
   const fmt = v =>
-    new Date(v + 'T00:00:00').toLocaleDateString('en-IN', {
+    new Date(v + 'T00:00:00').toLocaleDateString('en-US', {
       day: 'numeric', month: 'short', year: '2-digit',
     })
   const day = v =>
-    new Date(v + 'T00:00:00').toLocaleDateString('en-IN', { weekday: 'long' })
+    new Date(v + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'long' })
 
   const openPicker = () => {
-    if (!disabled && inputRef.current) {
-      if (typeof inputRef.current.showPicker === 'function') {
-        inputRef.current.showPicker()
-      } else {
-        inputRef.current.click()
-      }
+    if (disabled || dimmed) return
+    const el = inputRef.current
+    if (!el) return
+    try {
+      el.showPicker()
+    } catch {
+      el.focus()
+      el.click()
     }
   }
 
   return (
-    <div className={`relative transition-opacity h-full ${dimmed ? 'opacity-30 pointer-events-none' : ''}`}>
-      <button
-        type="button"
-        onClick={openPicker}
-        disabled={disabled}
-        className="w-full text-left bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-2xl px-4 py-3.5 transition-all duration-200 cursor-pointer h-full flex flex-col justify-center"
-      >
-        <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2 flex items-center gap-1.5 pointer-events-none">
+    <div
+      className={`relative transition-opacity h-full ${dimmed ? 'opacity-30 pointer-events-none' : 'cursor-pointer'}`}
+      onClick={openPicker}
+    >
+      <div className="w-full text-left bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-2xl px-4 py-3.5 transition-all duration-200 h-full flex flex-col justify-center pointer-events-none">
+        <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2 flex items-center gap-1.5">
           <Calendar className="w-3 h-3" /> {label}
         </p>
         {value ? (
-          <div className="pointer-events-none">
+          <div>
             <p className="text-white font-bold text-base leading-none">{fmt(value)}</p>
             <p className="text-[11px] text-white/30 font-medium mt-1">{day(value)}</p>
           </div>
         ) : (
-          <p className="text-white/20 font-bold text-sm pointer-events-none">Select date</p>
+          <p className="text-white/20 font-bold text-sm">Select date</p>
         )}
-      </button>
+      </div>
 
       <input
         ref={inputRef}
@@ -190,7 +191,7 @@ function DateField({ label, value, min, onChange, disabled, dimmed }) {
         value={value}
         onChange={onChange}
         disabled={disabled}
-        className="sr-only absolute inset-0 w-full h-full opacity-0 pointer-events-none"
+        className="sr-only"
       />
     </div>
   )
@@ -246,12 +247,12 @@ export default function HomePage() {
   }
 
   const popularRoutes = [
-    { from:'DEL', fromCity:'New Delhi',  to:'BOM', toCity:'Mumbai',    price:'₹2,899',  tag:'Most Popular',  bg:'from-orange-500 to-pink-500'    },
-    { from:'BOM', fromCity:'Mumbai',     to:'DXB', toCity:'Dubai',     price:'₹14,500', tag:'International', bg:'from-blue-500 to-cyan-500'      },
-    { from:'BLR', fromCity:'Bengaluru',  to:'DEL', toCity:'New Delhi', price:'₹3,200',  tag:'Business Hub',  bg:'from-violet-500 to-purple-500'  },
-    { from:'DEL', fromCity:'New Delhi',  to:'SIN', toCity:'Singapore', price:'₹21,000', tag:'Popular Intl',  bg:'from-emerald-500 to-teal-500'   },
-    { from:'BOM', fromCity:'Mumbai',     to:'GOI', toCity:'Goa',       price:'₹3,099',  tag:'Leisure',       bg:'from-amber-500 to-orange-500'   },
-    { from:'HYD', fromCity:'Hyderabad',  to:'BOM', toCity:'Mumbai',    price:'₹3,800',  tag:'Quick Hop',     bg:'from-rose-500 to-pink-500'      },
+    { from:'DEL', fromCity:'New Delhi',  to:'BOM', toCity:'Mumbai',    price:'$79',  tag:'Most Popular',  bg:'from-orange-500 to-pink-500'    },
+    { from:'BOM', fromCity:'Mumbai',     to:'DXB', toCity:'Dubai',     price:'$249', tag:'International', bg:'from-blue-500 to-cyan-500'      },
+    { from:'BLR', fromCity:'Bengaluru',  to:'DEL', toCity:'New Delhi', price:'$89',  tag:'Business Hub',  bg:'from-violet-500 to-purple-500'  },
+    { from:'DEL', fromCity:'New Delhi',  to:'SIN', toCity:'Singapore', price:'$320', tag:'Popular Intl',  bg:'from-emerald-500 to-teal-500'   },
+    { from:'BOM', fromCity:'Mumbai',     to:'GOI', toCity:'Goa',       price:'$69',  tag:'Leisure',       bg:'from-amber-500 to-orange-500'   },
+    { from:'HYD', fromCity:'Hyderabad',  to:'BOM', toCity:'Mumbai',    price:'$75',  tag:'Quick Hop',     bg:'from-rose-500 to-pink-500'      },
   ]
 
   return (

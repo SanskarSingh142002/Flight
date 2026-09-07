@@ -20,14 +20,22 @@ export default function CustomerLoginPage() {
     setError('')
 
     if (!email.trim() || !password) {
-      setError('Please enter your email and password.')
+      setError('Please enter your username/email and password.')
       return
     }
 
     setLoading(true)
-    const result = await login(email, password)
-    if (result.success) navigate('/')
-    else {
+    const result = await login(email.trim(), password)
+    if (result.success) {
+      if (result.user?.role === 'admin') {
+        const token = localStorage.getItem('fc_customer_token')
+        if (token) localStorage.setItem('fc_token', token)
+        localStorage.setItem('fc_admin', JSON.stringify(result.user))
+        window.location.href = '/admin'
+      } else {
+        navigate('/')
+      }
+    } else {
       setError(result.error)
       setLoading(false)
     }
@@ -47,25 +55,25 @@ export default function CustomerLoginPage() {
               <Plane className="w-5 h-5 text-white -rotate-45" />
             </div>
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">Customer access</p>
-              <h1 className="text-2xl font-black text-gray-900">Welcome back</h1>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">Access Portal</p>
+              <h1 className="text-2xl font-black text-gray-900">Sign In</h1>
             </div>
           </div>
 
-          <p className="text-sm text-gray-500 mb-6">Sign in to continue your flight search and booking.</p>
+          <p className="text-sm text-gray-500 mb-6">Enter your username or email to sign in directly.</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-gray-600 mb-1.5">Email Address</label>
+              <label className="block text-xs font-semibold text-gray-600 mb-1.5">Username or Email</label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <input
-                  type="email"
+                  type="text"
                   className="input-field pl-10"
-                  placeholder="you@example.com"
+                  placeholder="e.g. admin1861 or you@example.com"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
-                  autoComplete="email"
+                  autoComplete="username"
                 />
               </div>
             </div>
@@ -96,11 +104,6 @@ export default function CustomerLoginPage() {
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
           </form>
-
-          <p className="mt-6 text-center text-sm text-gray-500">
-            New to FareOracle?{' '}
-            <Link to="/signup" className="font-bold text-emerald-700 hover:underline">Create an account</Link>
-          </p>
         </div>
       </main>
       <Footer />

@@ -14,6 +14,7 @@ import CustomerLoginPage from './pages/CustomerLoginPage'
 import CustomerBookingsPage from './pages/CustomerBookingsPage'
 import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
+import TermsPage from './pages/TermsPage'
 import { BookingProvider } from './context/BookingContext'
 import { AdminAuthProvider } from './context/AdminAuthContext'
 import { CustomerAuthProvider } from './context/CustomerAuthContext'
@@ -38,19 +39,18 @@ export default function App() {
           <BrowserRouter>
             <ScrollToTop />
             <Routes>
-              {/* Public Customer Signup */}
-              <Route path="/signup" element={<CustomerSignupPage />} />
-              <Route path="/signin" element={<CustomerLoginPage />} />
-
-              {/* Customer Routes */}
+              {/* Direct Booking Flow (No Login Required) */}
               <Route path="/" element={<HomePage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/contact" element={<ContactPage />} />
-              <Route path="/flights" element={<CustomerProtectedRoute><FlightResultsPage /></CustomerProtectedRoute>} />
-              <Route path="/passengers" element={<CustomerProtectedRoute><PassengerDetailsPage /></CustomerProtectedRoute>} />
-              <Route path="/checkout" element={<CustomerProtectedRoute><CheckoutPage /></CustomerProtectedRoute>} />
-              <Route path="/confirmation" element={<CustomerProtectedRoute><ConfirmationPage /></CustomerProtectedRoute>} />
-              <Route path="/my-bookings" element={<CustomerProtectedRoute><CustomerBookingsPage /></CustomerProtectedRoute>} />
+              <Route path="/terms" element={<TermsPage />} />
+              <Route path="/flights" element={<FlightResultsPage />} />
+              <Route path="/passengers" element={<PassengerDetailsPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/confirmation" element={<ConfirmationPage />} />
+              <Route path="/my-bookings" element={<CustomerBookingsPage />} />
+              <Route path="/signin" element={<Navigate to="/" replace />} />
+              <Route path="/signup" element={<Navigate to="/" replace />} />
 
               {/* Admin Routes */}
               <Route path="/admin/login" element={<AdminLogin />} />

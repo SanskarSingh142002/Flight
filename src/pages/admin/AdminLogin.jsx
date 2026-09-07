@@ -74,7 +74,6 @@ export default function AdminLogin() {
                   <input
                     type="text"
                     className="input-field pl-10"
-                    placeholder="admin"
                     value={username}
                     onChange={e => { setUsername(e.target.value); setError('') }}
                     autoFocus
@@ -89,7 +88,6 @@ export default function AdminLogin() {
                   <input
                     type={showPass ? 'text' : 'password'}
                     className="input-field pl-10 pr-10"
-                    placeholder="••••••••"
                     value={password}
                     onChange={e => { setPassword(e.target.value); setError('') }}
                   />
