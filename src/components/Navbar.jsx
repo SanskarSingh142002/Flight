@@ -21,10 +21,11 @@ export default function Navbar() {
   const transparent = isHome && !scrolled && !menuOpen
 
   const navLinks = [
-    { label: 'Home',         href: '/' },
-    { label: 'How It Works', href: '/#how-it-works' },
-    { label: 'About',        href: '/about' },
-    { label: 'Contact',      href: '/contact' },
+    { label: 'Home',               href: '/' },
+    { label: 'How It Works',       href: '/#how-it-works' },
+    { label: 'About',              href: '/about' },
+    { label: 'Terms & Conditions', href: '/terms' },
+    { label: 'Contact',            href: '/contact' },
   ]
 
   const handleNavClick = (e, href) => {
