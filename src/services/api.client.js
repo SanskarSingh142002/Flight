@@ -17,17 +17,33 @@ const getToken = (path = '') => {
 };
 
 const request = async (method, path, body = null, requiresAuth = false) => {
-  const headers = { 'Content-Type': 'application/json' };
+  const headers = {
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-cache, no-store, must-revalidate',
+    'Pragma': 'no-cache',
+    'Expires': '0',
+  };
 
   if (requiresAuth) {
     const token = getToken(path);
     if (token) headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const options = { method, headers };
+  const options = {
+    method,
+    headers,
+    cache: 'no-store',
+  };
   if (body) options.body = JSON.stringify(body);
 
-  const response = await fetch(`${BASE_URL}${path}`, options);
+  // Bust browser, proxy, and NGINX caches for all GET requests
+  let url = `${BASE_URL}${path}`;
+  if (method === 'GET') {
+    const separator = url.includes('?') ? '&' : '?';
+    url = `${url}${separator}_t=${Date.now()}`;
+  }
+
+  const response = await fetch(url, options);
   const data = await response.json().catch(() => ({}));
 
   if (!response.ok) {

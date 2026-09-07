@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import { Clock, CheckCircle, Plane, DollarSign, ArrowRight, BarChart3, AlertCircle, User, Phone, Mail, CreditCard } from 'lucide-react'
+import { Clock, CheckCircle, Plane, DollarSign, ArrowRight, BarChart3, AlertCircle, RefreshCw, Radio } from 'lucide-react'
 import AdminLayout from '../../components/AdminLayout'
 import { getDashboard } from '../../services/admin.service'
 import { formatUSD } from '../../utils/currency'
@@ -20,21 +20,40 @@ const PAYMENT_CONFIG = {
 }
 
 export default function AdminDashboard() {
-  const [stats, setStats]   = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError]   = useState('')
+  const [stats, setStats]         = useState(null)
+  const [loading, setLoading]     = useState(true)
+  const [refreshing, setRefreshing] = useState(false)
+  const [error, setError]         = useState('')
+  const [lastUpdated, setLastUpdated] = useState(new Date())
+
+  const fetchDashboard = useCallback(async (isManual = false) => {
+    if (isManual) setRefreshing(true)
+    try {
+      const data = await getDashboard()
+      setStats(data)
+      setError('')
+      setLastUpdated(new Date())
+    } catch (e) {
+      if (!stats) setError(e.message)
+    } finally {
+      setLoading(false)
+      if (isManual) setRefreshing(false)
+    }
+  }, [stats])
 
   useEffect(() => {
-    getDashboard()
-      .then(setStats)
-      .catch((e) => setError(e.message))
-      .finally(() => setLoading(false))
-  }, [])
+    fetchDashboard(false)
+    // Auto-update dashboard every 10 seconds
+    const interval = setInterval(() => {
+      fetchDashboard(false)
+    }, 10000)
+    return () => clearInterval(interval)
+  }, [fetchDashboard])
 
   const formatPrice = (p) => formatUSD(p)
   const formatDate  = (d) => new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
 
-  if (loading) return (
+  if (loading && !stats) return (
     <AdminLayout title="Dashboard">
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
         {[1,2,3,4].map(i => <div key={i} className="card p-5 h-28 shimmer animate-pulse" />)}
@@ -42,24 +61,57 @@ export default function AdminDashboard() {
     </AdminLayout>
   )
 
-  if (error) return (
+  if (error && !stats) return (
     <AdminLayout title="Dashboard">
-      <div className="card p-6 flex items-center gap-3 text-red-600 border-red-200">
-        <AlertCircle className="w-5 h-5" />
-        <p>Failed to load dashboard: {error}</p>
+      <div className="card p-6 flex items-center justify-between gap-3 text-red-600 border-red-200">
+        <div className="flex items-center gap-3">
+          <AlertCircle className="w-5 h-5 shrink-0" />
+          <p>Failed to load dashboard: {error}</p>
+        </div>
+        <button
+          onClick={() => fetchDashboard(true)}
+          className="btn-primary text-xs py-2 px-3 flex items-center gap-1.5"
+        >
+          <RefreshCw className="w-3.5 h-3.5" /> Retry
+        </button>
       </div>
     </AdminLayout>
   )
 
   const statCards = [
-    { label: 'Total Bookings',    value: stats.total,               icon: Plane,         color: 'bg-blue-50',   iconColor: 'text-blue-600',   sub: 'All time' },
-    { label: 'Revenue Collected', value: formatPrice(stats.revenue), icon: DollarSign,   color: 'bg-green-50',  iconColor: 'text-green-600',  sub: `${stats.byPayment?.paid || 0} paid bookings` },
-    { label: 'Pending Action',    value: (stats.byStatus?.new || 0) + (stats.byStatus?.contacted || 0), icon: Clock, color: 'bg-yellow-50', iconColor: 'text-yellow-600', sub: 'Needs follow-up' },
-    { label: 'Completed',         value: stats.byStatus?.completed || 0, icon: CheckCircle, color: 'bg-purple-50', iconColor: 'text-purple-600', sub: `${stats.total ? Math.round(((stats.byStatus?.completed||0)/stats.total)*100) : 0}% success rate` },
+    { label: 'Total Bookings',    value: stats?.total || 0,               icon: Plane,         color: 'bg-blue-50',   iconColor: 'text-blue-600',   sub: 'All time' },
+    { label: 'Revenue Collected', value: formatPrice(stats?.revenue || 0), icon: DollarSign,   color: 'bg-green-50',  iconColor: 'text-green-600',  sub: `${stats?.byPayment?.paid || 0} paid bookings` },
+    { label: 'Pending Action',    value: (stats?.byStatus?.new || 0) + (stats?.byStatus?.contacted || 0), icon: Clock, color: 'bg-yellow-50', iconColor: 'text-yellow-600', sub: 'Needs follow-up' },
+    { label: 'Completed',         value: stats?.byStatus?.completed || 0, icon: CheckCircle, color: 'bg-purple-50', iconColor: 'text-purple-600', sub: `${stats?.total ? Math.round(((stats?.byStatus?.completed||0)/stats.total)*100) : 0}% success rate` },
   ]
 
   return (
     <AdminLayout title="Dashboard">
+      {/* Top Sync & Refresh Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6 bg-white p-3 sm:p-4 rounded-xl border border-gray-200/80 shadow-sm">
+        <div className="flex items-center gap-2.5">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+          </span>
+          <span className="text-xs font-bold text-gray-800">Live Auto-Update Active</span>
+          <span className="text-gray-300 hidden sm:inline">•</span>
+          <span className="text-xs text-gray-500 hidden sm:inline">
+            Updated: {lastUpdated.toLocaleTimeString()}
+          </span>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => fetchDashboard(true)}
+          disabled={refreshing}
+          className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-bold text-gray-700 bg-gray-50 hover:bg-gray-100 active:bg-gray-200 border border-gray-200 rounded-lg transition-all cursor-pointer disabled:opacity-50"
+        >
+          <RefreshCw className={`w-3.5 h-3.5 text-blue-600 ${refreshing ? 'animate-spin' : ''}`} />
+          <span>{refreshing ? 'Updating...' : 'Refresh Now'}</span>
+        </button>
+      </div>
+
       {/* Stat cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
         {statCards.map((card) => (
