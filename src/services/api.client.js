@@ -5,8 +5,11 @@
 
 const BASE_URL = import.meta.env.VITE_API_URL || 'https://marwing.sg-host.com/api';
 
-const getToken = () => {
+const getToken = (path = '') => {
   try {
+    if (path.startsWith('/admin')) {
+      return localStorage.getItem('fc_token') || null;
+    }
     return localStorage.getItem('fc_token') || localStorage.getItem('fc_customer_token') || null;
   } catch {
     return null;
@@ -17,7 +20,7 @@ const request = async (method, path, body = null, requiresAuth = false) => {
   const headers = { 'Content-Type': 'application/json' };
 
   if (requiresAuth) {
-    const token = getToken();
+    const token = getToken(path);
     if (token) headers['Authorization'] = `Bearer ${token}`;
   }
 

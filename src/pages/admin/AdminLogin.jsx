@@ -15,19 +15,23 @@ export default function AdminLogin() {
 
   if (adminUser) return <Navigate to="/admin" replace />
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!username || !password) { setError('Please enter credentials'); return }
     setLoading(true)
-    setTimeout(() => {
-      const result = login(username, password)
-      if (result.success) {
+    setError('')
+    try {
+      const result = await login(username, password)
+      if (result?.success) {
         navigate('/admin')
       } else {
-        setError(result.error)
-        setLoading(false)
+        setError(result?.error || 'Invalid credentials')
       }
-    }, 800)
+    } catch (err) {
+      setError(err.message || 'Login failed')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
