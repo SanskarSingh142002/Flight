@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import { Clock, CheckCircle, Plane, DollarSign, ArrowRight, BarChart3, AlertCircle, RefreshCw, Radio } from 'lucide-react'
+import { Clock, CheckCircle, Plane, DollarSign, ArrowRight, BarChart3, AlertCircle, RefreshCw, Radio, User, Phone, Mail, CreditCard } from 'lucide-react'
 import AdminLayout from '../../components/AdminLayout'
 import { getDashboard } from '../../services/admin.service'
 import { formatUSD } from '../../utils/currency'
