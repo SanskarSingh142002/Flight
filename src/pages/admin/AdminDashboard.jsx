@@ -34,20 +34,15 @@ export default function AdminDashboard() {
       setError('')
       setLastUpdated(new Date())
     } catch (e) {
-      if (!stats) setError(e.message)
+      setError(e.message || 'Failed to load dashboard data')
     } finally {
       setLoading(false)
       if (isManual) setRefreshing(false)
     }
-  }, [stats])
+  }, [])
 
   useEffect(() => {
     fetchDashboard(false)
-    // Auto-update dashboard every 10 seconds
-    const interval = setInterval(() => {
-      fetchDashboard(false)
-    }, 10000)
-    return () => clearInterval(interval)
   }, [fetchDashboard])
 
   const formatPrice = (p) => formatUSD(p)
@@ -90,14 +85,11 @@ export default function AdminDashboard() {
       {/* Top Sync & Refresh Bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 mb-6 bg-white p-3 sm:p-4 rounded-xl border border-gray-200/80 shadow-sm">
         <div className="flex items-center gap-2.5">
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-          </span>
-          <span className="text-xs font-bold text-gray-800">Live Auto-Update Active</span>
+          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+          <span className="text-xs font-bold text-gray-800">Dashboard Synchronized</span>
           <span className="text-gray-300 hidden sm:inline">•</span>
           <span className="text-xs text-gray-500 hidden sm:inline">
-            Updated: {lastUpdated.toLocaleTimeString()}
+            Last Updated: {lastUpdated.toLocaleTimeString()}
           </span>
         </div>
 
