@@ -3,7 +3,7 @@
  * All backend calls go through here — baseURL, auth header, error normalisation.
  */
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'https://marwing.sg-host.com/api';
+const BASE_URL = import.meta.env.VITE_API_URL || 'https://marwing2.sg-host.com/api';
 
 const getToken = (path = '') => {
   try {
